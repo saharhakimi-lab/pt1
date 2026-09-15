@@ -28,7 +28,7 @@
 body{
   margin:0; background:var(--bg); color:var(--text);
   font-family:'Varela Round', sans-serif; line-height:1.7;
-  padding-bottom:140px; font-size: 18px; /* הגדלת גודל הפונט הבסיסי */
+  padding-bottom:140px; font-size: 18px;
 }
 
 .mono, code, .eng-text {
@@ -65,11 +65,21 @@ p{margin:0 0 14px; color:var(--muted); font-size: 18px;}
 
 header.hero{padding:65px 0 35px; border-bottom:2px solid var(--border);}
 .hero-content{display:flex; align-items:center; justify-content:space-between; gap:28px;}
+
+/* אזור האווטר והכפתור */
+.avatar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
 .crazy-avatar{
   width:125px; height:125px; border-radius:50%;
   border:4px solid var(--stick);
   box-shadow:0 0 25px rgba(29,78,216,0.3);
-  object-fit:cover; flex-shrink:0;
+  object-fit:cover;
   animation:crazySpin 8s linear infinite;
 }
 @keyframes crazySpin {
@@ -78,9 +88,33 @@ header.hero{padding:65px 0 35px; border-bottom:2px solid var(--border);}
   100% { transform: rotate(360deg) scale(1); }
 }
 
+.btn-extra-tasks {
+  background: linear-gradient(135deg, #1D4ED8 0%, #1E40AF 100%);
+  color: #FFFFFF;
+  border: 2px solid #60A5FA;
+  border-radius: 12px;
+  padding: 8px 18px;
+  font-family: 'Varela Round', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.25);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+.btn-extra-tasks:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(29, 78, 216, 0.35);
+  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+}
+
 @media(max-width:720px){
   .hero-content{flex-direction:column-reverse; align-items:flex-start;}
   .crazy-avatar{width:90px; height:90px;}
+  .avatar-container{align-items: flex-start;}
 }
 
 .eyebrow{display:inline-block; font-family:'Fira Code',monospace; font-size:14px; letter-spacing:1px; color:var(--stick); background:rgba(29,78,216,0.12); border:1px solid rgba(29,78,216,0.3); padding:6px 16px; border-radius:20px; margin-bottom:18px; direction:ltr; font-weight:600;}
@@ -169,7 +203,15 @@ button.btn.teacher{background: linear-gradient(135deg, #10B981 0%, #059669 100%)
       <h1 class="title">צעדים ראשונים ב-<b>Packet Tracer</b></h1>
       <p class="subtitle">ברוכים הבאים לעולם הרשתות! בלומדה זו תלמדו איך לבנות רשת מקומית ראשונה, לחבר רכיבים, להגדיר כתובות IP ושרת DHCP, ולהבין בדיוק מה קורה ב-7 השכבות במעבר מידע.</p>
     </div>
-    <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="אווטר מסתובב" class="crazy-avatar">
+    
+    <!-- אזור האווטר + כפתור משימות נוספות -->
+    <div class="avatar-container">
+      <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="אווטר מסתובב" class="crazy-avatar">
+      <button class="btn-extra-tasks" onclick="openDocModal()">
+        <span>משימות נוספות</span>
+        <i data-lucide="file-text" class="w-5 h-5"></i>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -332,6 +374,34 @@ button.btn.teacher{background: linear-gradient(135deg, #10B981 0%, #059669 100%)
 <div class="footer-note">סימולטור אינטראקטיבי ללימוד Packet Tracer — נבנה עבור המורה סהר חכימי 2026</div>
 </div>
 
+<!-- Modal לצפייה במסמך משימות נוספות -->
+<div id="docModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[110] hidden flex items-center justify-center p-4 transition-all duration-300">
+  <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-5xl h-[88vh] flex flex-col relative shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300" id="docModalContent">
+    
+    <!-- Topbar Modal -->
+    <div class="flex items-center justify-between bg-slate-800/90 px-6 py-4 border-b border-slate-700">
+      <div class="flex items-center gap-3">
+        <i data-lucide="file-text" class="w-6 h-6 text-blue-400"></i>
+        <h3 class="text-xl font-bold text-white">משימות נוספות - Packet Tracer</h3>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="https://drive.google.com/file/d/1X6KivQb6VAsYKdcJjaQoXQZiysZ0x-i1/view?usp=sharing" target="_blank" class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl text-sm transition-all shadow-md">
+          <span>פתח בחלון מלא</span>
+          <i data-lucide="external-link" class="w-4 h-4"></i>
+        </a>
+        <button onclick="closeDocModal()" class="text-slate-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-slate-700/60">
+          <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- iFrame Container -->
+    <div class="flex-1 bg-slate-950 relative">
+      <iframe id="docIframe" src="" class="w-full h-full border-0" allow="autoplay"></iframe>
+    </div>
+  </div>
+</div>
+
 <!-- כפתור עזרה צף -->
 <div class="fixed bottom-6 left-6 z-50 no-print">
     <button id="openHelpModalBtn" class="flex items-center gap-3 bg-gradient-to-r from-blue-700 to-indigo-700 hover:from-blue-800 hover:to-indigo-800 text-white font-bold py-3 px-5 rounded-full shadow-lg shadow-blue-500/20 transition-all duration-300 transform hover:scale-105 group border border-blue-400/30 text-lg">
@@ -399,6 +469,29 @@ stepIds.forEach(id=>{ const el = document.getElementById(id); if(el) io.observe(
 
 function toggleAcc(id){
   document.getElementById(id).classList.toggle("open");
+}
+
+/* Modal Google Drive Document */
+function openDocModal(){
+  const modal = document.getElementById('docModal');
+  const modalContent = document.getElementById('docModalContent');
+  const iframe = document.getElementById('docIframe');
+  
+  iframe.src = "https://drive.google.com/file/d/1X6KivQb6VAsYKdcJjaQoXQZiysZ0x-i1/preview";
+  modal.classList.remove('hidden');
+  setTimeout(() => modalContent.classList.remove('scale-95'), 10);
+}
+
+function closeDocModal(){
+  const modal = document.getElementById('docModal');
+  const modalContent = document.getElementById('docModalContent');
+  const iframe = document.getElementById('docIframe');
+  
+  modalContent.classList.add('scale-95');
+  setTimeout(() => {
+    modal.classList.add('hidden');
+    iframe.src = "";
+  }, 150);
 }
 
 /* CLI Simulation */
