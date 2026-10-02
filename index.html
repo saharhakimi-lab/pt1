@@ -54,14 +54,6 @@ body{
 h1,h2,h3{font-weight:700; margin:0 0 10px;}
 p{margin:0 0 14px; color:var(--muted); font-size: 18px;}
 
-.progressbar{position:sticky; top:0; z-index:40; background:rgba(245,239,224,0.95); backdrop-filter:blur(8px); border-bottom:2px solid var(--border); padding:16px 24px;}
-.progressbar-inner{max-width:1150px; margin:0 auto; display:flex; align-items:center; gap:16px;}
-.steps{display:flex; gap:8px; flex:1;}
-.step{flex:1; height:8px; border-radius:4px; background:#D8CDA8; position:relative; overflow:hidden;}
-.step.done{background:var(--ok);}
-.step.active{background:var(--info);}
-.progress-pct{font-size:15px; color:var(--muted); font-family:'Fira Code',monospace; font-weight:bold; white-space:nowrap;}
-
 header.hero{padding:32px 0 18px; border-bottom:2px solid var(--border);}
 .hero-content{display:flex; align-items:center; justify-content:space-between; gap:28px;}
 
@@ -184,13 +176,6 @@ button.btn.teacher{background: linear-gradient(135deg, #10B981 0%, #059669 100%)
 </head>
 <body>
 
-<div class="progressbar">
-  <div class="progressbar-inner">
-    <div class="steps" id="stepsBar"></div>
-    <div class="progress-pct" id="progressPct">0%</div>
-  </div>
-</div>
-
 <div class="wrap">
 
 <header class="hero">
@@ -273,44 +258,44 @@ button.btn.teacher{background: linear-gradient(135deg, #10B981 0%, #059669 100%)
 <section id="s2">
 <div class="section-head">
   <div class="section-num">02 — תיאוריה וחשיבה</div>
-  <h2 class="section-title">7 השכבות (מודל OSI) ב-Packet Tracer 🌐</h2>
+  <h2 class="section-title">7 השכבות במודל <code class="term-code-inline">OSI</code> ב-<code class="term-code-inline">Packet Tracer</code></h2>
 </div>
 
-<p>כאשר אתם לוחצים על מעטפה במצב <b>Simulation</b> ב-Packet Tracer, נפתחת חלונית המציגה את מודל השכבות. הנה מה שקורה בכל שכבה מהרגע שהפורט מחובר ועד ליישום:</p>
+<p>כאשר אתם לוחצים על מעטפה במצב <code class="term-code-inline">Simulation</code> ב-<code class="term-code-inline">Packet Tracer</code>, נפתחת חלונית המציגה את מודל השכבות. הנה מה שקורה בכל שכבה מהרגע שהפורט מחובר ועד ליישום:</p>
 
 <div id="acc1" class="accordion">
-  <div class="acc-head" onclick="toggleAcc('acc1')"><div>שכבה 1: השכבה הפיזית (Physical Layer)</div><div class="acc-arrow">▾</div></div>
+  <div class="acc-head" onclick="toggleAcc('acc1')"><div>שכבה 1: השכבה הפיזית <code class="term-code-inline">Physical Layer</code></div><div class="acc-arrow">▾</div></div>
   <div class="acc-body"><div class="acc-body-inner">
-    <p><b>מה קורה ב-Packet Tracer?</b> חיבור הכבל (Ethernet Cable), הפורט הפיזי (<code class="term-code-inline">FastEthernet0</code>) והמרת המידע לאותות חשמליים/אופטיים (ביטים של 0 ו-1).</p>
-    <p><b>בדיקת תקינות:</b> הנורית הירוקה בפורט מעידה על סיגנל פיזי תקין (Link Up).</p>
+    <p><b>מה קורה ב-<code class="term-code-inline">Packet Tracer</code>?</b> חיבור הכבל <code class="term-code-inline">Ethernet Cable</code>, הפורט הפיזי <code class="term-code-inline">FastEthernet0</code> והמרת המידע לאותות חשמליים או אופטיים, ביטים של 0 ו-1.</p>
+    <p><b>בדיקת תקינות:</b> הנורית הירוקה בפורט מעידה על סיגנל פיזי תקין <code class="term-code-inline">Link Up</code>.</p>
   </div></div>
 </div>
 
 <div id="acc2" class="accordion">
-  <div class="acc-head" onclick="toggleAcc('acc2')"><div>שכבה 2: שכבת ערוץ הנתונים (Data Link Layer)</div><div class="acc-arrow">▾</div></div>
+  <div class="acc-head" onclick="toggleAcc('acc2')"><div>שכבה 2: שכבת ערוץ הנתונים <code class="term-code-inline">Data Link Layer</code></div><div class="acc-arrow">▾</div></div>
   <div class="acc-body"><div class="acc-body-inner">
-    <p><b>מה קורה ב-Packet Tracer?</b> עבודה עם כתובות פיזיות (**MAC Address**) ומסגרות (**Frames**). הסוויטש קורא בשכבה זו את כתובת ה-MAC של היעד ומעביר את הפריים לפורט הנכון בלבד.</p>
+    <p><b>מה קורה ב-<code class="term-code-inline">Packet Tracer</code>?</b> עבודה עם כתובות פיזיות <code class="term-code-inline">MAC Address</code> ומסגרות <code class="term-code-inline">Frames</code>. הסוויטש קורא בשכבה זו את כתובת ה-<code class="term-code-inline">MAC</code> של היעד ומעביר את הפריים לפורט הנכון בלבד.</p>
   </div></div>
 </div>
 
 <div id="acc3" class="accordion">
-  <div class="acc-head" onclick="toggleAcc('acc3')"><div>שכבה 3: שכבת הרשת (Network Layer)</div><div class="acc-arrow">▾</div></div>
+  <div class="acc-head" onclick="toggleAcc('acc3')"><div>שכבה 3: שכבת הרשת <code class="term-code-inline">Network Layer</code></div><div class="acc-arrow">▾</div></div>
   <div class="acc-body"><div class="acc-body-inner">
-    <p><b>מה קורה ב-Packet Tracer?</b> עבודה עם כתובות לוגיות (**IPv4 / IPv6**) וחבילות (**Packets**). בדיקות Ping משתמשות בפרוטוקול ICMP בשכבה זו כדי לבדוק שרשת המקור והיעד יכולות לתקשר.</p>
+    <p><b>מה קורה ב-<code class="term-code-inline">Packet Tracer</code>?</b> עבודה עם כתובות לוגיות <code class="term-code-inline">IPv4</code> / <code class="term-code-inline">IPv6</code> וחבילות <code class="term-code-inline">Packets</code>. בדיקות <code class="term-code-inline">Ping</code> משתמשות בפרוטוקול <code class="term-code-inline">ICMP</code> בשכבה זו כדי לבדוק שרשת המקור והיעד יכולות לתקשר.</p>
   </div></div>
 </div>
 
 <div id="acc4" class="accordion">
-  <div class="acc-head" onclick="toggleAcc('acc4')"><div>שכבה 4: שכבת התחבורה (Transport Layer)</div><div class="acc-arrow">▾</div></div>
+  <div class="acc-head" onclick="toggleAcc('acc4')"><div>שכבה 4: שכבת התחבורה <code class="term-code-inline">Transport Layer</code></div><div class="acc-arrow">▾</div></div>
   <div class="acc-body"><div class="acc-body-inner">
-    <p><b>מה קורה ב-Packet Tracer?</b> ניהול הקשר מקצה לקצה בעזרת פרוטוקולי **TCP** (אמין, מבוסס חיבור) או **UDP** (מהיר, ללא אישור הגעה) ופורטים של שירותים (למשל Port 80 ל-HTTP או Port 67/68 ל-DHCP).</p>
+    <p><b>מה קורה ב-<code class="term-code-inline">Packet Tracer</code>?</b> ניהול הקשר מקצה לקצה בעזרת פרוטוקולי <code class="term-code-inline">TCP</code>, אמין ומבוסס חיבור, או <code class="term-code-inline">UDP</code>, מהיר וללא אישור הגעה, ופורטים של שירותים כמו למשל <code class="term-code-inline">Port 80</code> ל-<code class="term-code-inline">HTTP</code> או <code class="term-code-inline">Port 67/68</code> ל-<code class="term-code-inline">DHCP</code>.</p>
   </div></div>
 </div>
 
 <div id="acc5" class="accordion">
-  <div class="acc-head" onclick="toggleAcc('acc5')"><div>שכבות 5-7: השיחה, המצג והאפליקציה (Session, Presentation, Application)</div><div class="acc-arrow">▾</div></div>
+  <div class="acc-head" onclick="toggleAcc('acc5')"><div>שכבות 5-7: השיחה, המצג והאפליקציה <code class="term-code-inline">Session, Presentation, Application</code></div><div class="acc-arrow">▾</div></div>
   <div class="acc-body"><div class="acc-body-inner">
-    <p><b>מה קורה ב-Packet Tracer?</b> התוכנות המופעלות בתוך המחשב/שרת: דפדפן אינטרנט (Web Browser/HTTP), שירות DHCP לקבלת כתובת, Command Prompt או שירותי DNS.</p>
+    <p><b>מה קורה ב-<code class="term-code-inline">Packet Tracer</code>?</b> התוכנות המופעלות בתוך המחשב או השרת: דפדפן אינטרנט <code class="term-code-inline">Web Browser</code> / <code class="term-code-inline">HTTP</code>, שירות <code class="term-code-inline">DHCP</code> לקבלת כתובת, <code class="term-code-inline">Command Prompt</code> או שירותי <code class="term-code-inline">DNS</code>.</p>
   </div></div>
 </div>
 </section>
@@ -430,25 +415,10 @@ const PROGRESS_KEY = "pt101_progress";
 const stepIds = ["s1","s2","s3","s4"];
 let progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || "{}");
 
-function renderStepsBar(){
-  const bar = document.getElementById("stepsBar");
-  if(!bar) return;
-  bar.innerHTML = "";
-  stepIds.forEach(id=>{
-    const d = document.createElement("div");
-    d.className = "step" + (progress[id] ? " done" : "");
-    bar.appendChild(d);
-  });
-  const done = stepIds.filter(id=>progress[id]).length;
-  document.getElementById("progressPct").textContent = Math.round(done/stepIds.length*100) + "%";
-}
-
 function markDone(id){
   progress[id] = true;
   localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
-  renderStepsBar();
 }
-renderStepsBar();
 
 const io = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{
