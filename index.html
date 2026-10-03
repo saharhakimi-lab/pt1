@@ -1,713 +1,839 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>צעדים ראשונים ב-Packet Tracer | לומדה אינטראקטיבית</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://unpkg.com/lucide@latest"></script>
-<style>
-:root{
-  --bg:#F5EFE0; /* רקע שמנת חם */
-  --panel:#FFFDF7; /* כרטיסיות שמנת בהיר */
-  --panel2:#EFE6D5; /* משטחי משנה בשמנת */
-  --panel3:#E4DA86; 
-  --border:#D8CDA8; --border2:#CBD5E1;
-  --text:#1F2937; --muted:#4B5563; --muted2:#6B7280;
-  --v10:#D97706; --v10-dim:rgba(217,119,6,0.15);
-  --v20:#DC2626; --v20-dim:rgba(220,38,38,0.15);
-  --v30:#059669; --v30-dim:rgba(5,150,105,0.15);
-  --stick:#1D4ED8;
-  --ok:#059669; --bad:#DC2626; --info:#1D4ED8;
-  --radius:16px;
-}
-*{box-sizing:border-box;}
-body{
-  margin:0; background:var(--bg); color:var(--text);
-  font-family:'Varela Round', sans-serif; line-height:1.7;
-  padding-bottom:140px; font-size: 18px;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>צעדים ראשונים ב-Packet Tracer | לומדה אינטראקטיבית</title>
 
-.mono, code, .eng-text {
-  font-family: 'Fira Code', monospace;
-  direction: ltr;
-  display: inline-block;
-  unicode-bidi: embed;
-}
-.term-code-inline {
-  background: #EAE1D0;
-  border: 1px solid #C8BC9D;
-  padding: 3px 9px;
-  border-radius: 6px;
-  color: #111827;
-  font-size: 0.95em;
-  font-family: 'Fira Code', monospace;
-  font-weight: 600;
-  direction: ltr;
-  display: inline-block;
-}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700;800;900&family=Heebo:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
 
-.wrap{max-width:1150px; margin:0 auto; padding:0 24px;}
-h1,h2,h3{font-weight:700; margin:0 0 10px;}
-p{margin:0 0 14px; color:var(--muted); font-size: 18px;}
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-header.hero{padding:32px 0 18px; border-bottom:2px solid var(--border);}
-.hero-content{display:flex; align-items:center; justify-content:space-between; gap:28px;}
+    <style>
+        :root {
+            --bg: #fbf8ee;
+            --paper: #ffffff;
+            --ink: #20150f;
+            --soft: #3b2b22;
+            --muted: #5a4a40;
+            --line: #e6d9bf;
+            --red: #b91c1c;
+            --red-text: #a11a1a;
+            --red-soft: #fcebe7;
+            --red-edge: #e9b8ae;
+            --term: #0b5d73;
+            --term-soft: #e1f3f8;
+            --aside-bg: #f6eadc;
+            --aside-edge: #e2c9a8;
+            --aside-ink: #5b3a1a;
 
-/* אזור האווטר והכפתור */
-.avatar-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-  flex-shrink: 0;
-}
+            --c-sky: #0e7490;   --c-sky-bg: #e3f4f9;
+            --c-green: #047857; --c-green-bg: #e1f5ee;
+            --c-amber: #b45309; --c-amber-bg: #fdf1dd;
+            --c-violet: #6d28d9; --c-violet-bg: #efe8fb;
 
-.crazy-avatar{
-  width:125px; height:125px; border-radius:50%;
-  border:4px solid var(--stick);
-  box-shadow:0 0 25px rgba(29,78,216,0.3);
-  object-fit:cover;
-  animation:crazySpin 8s linear infinite;
-}
-@keyframes crazySpin {
-  0% { transform: rotate(0deg) scale(1); }
-  50% { transform: rotate(180deg) scale(1.08); }
-  100% { transform: rotate(360deg) scale(1); }
-}
+            --ok-bg: #d8f3e6; --ok-edge: #0b6b4a;
+            --bad-bg: #fcdcd6; --bad-edge: #a11a1a;
+            --shadow: 0 10px 30px -12px rgba(120, 40, 20, 0.18);
 
-.btn-extra-tasks {
-  background: linear-gradient(135deg, #1D4ED8 0%, #1E40AF 100%);
-  color: #FFFFFF;
-  border: 2px solid #60A5FA;
-  border-radius: 12px;
-  padding: 8px 18px;
-  font-family: 'Varela Round', sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.25);
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  white-space: nowrap;
-}
-.btn-extra-tasks:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(29, 78, 216, 0.35);
-  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
-}
+            --font-body: 'Heebo', 'Assistant', system-ui, sans-serif;
+            --font-display: 'Rubik', 'Heebo', system-ui, sans-serif;
+            --font-code: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+        }
 
-@media(max-width:720px){
-  .hero-content{flex-direction:column-reverse; align-items:flex-start;}
-  .crazy-avatar{width:90px; height:90px;}
-  .avatar-container{align-items: flex-start;}
-}
+        body.dark {
+            --bg: #181311;
+            --paper: #241c18;
+            --ink: #f8efe7;
+            --soft: #eadfd5;
+            --muted: #d0c0b3;
+            --line: #3d2f26;
+            --red-text: #ff9b9b;
+            --red-soft: #3c1f1c;
+            --red-edge: #6d3a33;
+            --term: #7fdcf0;
+            --term-soft: #123640;
+            --aside-bg: #3a2c20;
+            --aside-edge: #6b5237;
+            --aside-ink: #f6dfc0;
+            --c-sky: #7fdcf0;   --c-sky-bg: rgba(14, 116, 144, 0.22);
+            --c-green: #6ee7b7; --c-green-bg: rgba(4, 120, 87, 0.24);
+            --c-amber: #fcd34d; --c-amber-bg: rgba(180, 83, 9, 0.26);
+            --c-violet: #c4b5fd; --c-violet-bg: rgba(109, 40, 217, 0.26);
+            --shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.6);
+        }
 
-h1.title{font-size:38px; margin-bottom:10px; color:var(--text);}
-h1.title b{color:var(--stick); font-weight: inherit;}
-.subtitle{font-size:18px; max-width:750px; margin:0; color:var(--muted);}
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; font-size: 20px; }
+        @media (max-width: 600px) { html { font-size: 18px; } }
 
-section{padding:25px 0 55px; border-top:2px solid var(--border);}
-.section-head{margin-bottom:28px;}
-.section-num{font-family:'Fira Code',monospace; color:var(--muted2); font-size:15px; margin-bottom:6px; direction:ltr; text-align:right; font-weight:600;}
-.section-title{font-size:28px; color:var(--text);}
+        html body {
+            font-family: var(--font-body);
+            font-weight: 500;
+            background: var(--bg);
+            color: var(--ink);
+            line-height: 1.8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
 
-.card{background:var(--panel); border:2px solid var(--border); border-radius:var(--radius); padding:28px; box-shadow:0 3px 10px rgba(0,0,0,0.03);}
-.grid2{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
-@media(max-width:720px){.grid2{grid-template-columns:1fr;}}
+        button, input, textarea, select { font-family: inherit; }
+        button { cursor: pointer; }
+        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 800; }
+        :focus-visible { outline: 3px solid #f59e0b; outline-offset: 3px; }
 
-.accordion{border:2px solid var(--border); border-radius:var(--radius); overflow:hidden; margin-bottom:14px; background:var(--panel);}
-.acc-head{padding:18px 22px; background:var(--panel); cursor:pointer; display:flex; justify-content:space-between; align-items:center; font-weight:700; font-size:19px;}
-.acc-head:hover{background:var(--panel2);}
-.acc-body{max-height:0; overflow:hidden; transition:max-height .3s ease; background:var(--panel);}
-.acc-body-inner{padding:0 22px 22px; font-size:17px;}
-.accordion.open .acc-body{max-height:800px;}
-.acc-arrow{transition:transform .3s; color:var(--muted); font-size:20px;}
-.accordion.open .acc-arrow{transform:rotate(180deg);}
+        body .container { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 16px; }
 
-.terminal{background:#0F141C; border:2px solid var(--border2); border-radius:12px; padding:20px; font-family:'Fira Code',monospace; font-size:15px; direction:ltr; text-align:left;}
-.term-topbar{display:flex; gap:8px; margin-bottom:14px; align-items:center; direction:ltr;}
-.dot{width:12px; height:12px; border-radius:50%;}
-.dot.r{background:#EF4444;} .dot.y{background:#F59E0B;} .dot.g{background:#10B981;}
-.term-output{white-space:pre-wrap; color:#94A3B8; margin-bottom:12px; min-height:50px; font-size:15px; direction:ltr; text-align:left;}
-.term-output .ok{color:#10B981; display:block; direction:rtl; text-align:right; font-size:16px;}
-.term-output .bad{color:#EF4444; display:block; direction:rtl; text-align:right; font-size:16px;}
-.term-output .hint{color:#F59E0B; display:block; direction:rtl; text-align:right; font-size:16px;}
-.term-input-row{display:flex; align-items:center; gap:8px; border-top:1px solid var(--border2); padding-top:14px; direction:ltr;}
-.prompt{color:#10B981; white-space:nowrap; font-size:16px;}
-input.term-input{flex:1; background:transparent; border:none; color:#FFFFFF; font-family:'Fira Code',monospace; font-size:15px; outline:none; direction:ltr; text-align:left;}
+        /* ---------- סטרייפים עליונים ---------- */
+        .top-stripe {
+            background: var(--red);
+            color: #ffffff;
+            padding: 8px 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
 
-.task-box{background:var(--panel); border:2px solid var(--border); border-radius:14px; padding:22px; margin-bottom:20px; box-shadow: 0 2px 6px rgba(0,0,0,0.02);}
-.task-title{font-weight:700; margin-bottom:8px; color:var(--stick); font-size:20px;}
-.task-desc{font-size:17px; color:var(--text); margin-bottom:12px;}
-.task-step-list{margin:0; padding-right:24px; color:var(--muted); font-size:16px; line-height: 1.8;}
-.task-step-list li { margin-bottom: 6px; }
+        .stripe-group { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 
-.quiz-q{background:var(--panel); border:2px solid var(--border); border-radius:var(--radius); padding:28px; margin-bottom:24px; box-shadow:0 3px 10px rgba(0,0,0,0.03);}
-.quiz-q-num{font-family:'Fira Code',monospace; color:var(--muted2); font-size:14px; margin-bottom:8px; direction:ltr; text-align:right; font-weight:600;}
-.quiz-q-text { font-size: 20px; font-weight: 700; color: var(--text); }
-.quiz-opts{display:flex; flex-direction:column; gap:12px; margin-top:16px;}
-.quiz-opt{background:var(--panel2); border:2px solid var(--border); border-radius:10px; padding:16px 20px; cursor:pointer; text-align:right; font-size:17px; font-weight:500; transition:border-color 0.15s, background 0.15s;}
-.quiz-opt:hover{border-color:var(--stick); background:#E6DCC8;}
-.quiz-opt.correct{background:rgba(5,150,105,0.15); border-color:var(--ok); color:var(--ok); font-weight:700;}
-.quiz-opt.wrong{background:rgba(220,38,38,0.15); border-color:var(--bad); color:var(--bad); font-weight:700;}
-.quiz-opt.disabled{pointer-events:none;}
-.quiz-explain{margin-top:14px; padding:16px; background:var(--panel2); border-radius:10px; font-size:16px; display:none; border-right:4px solid var(--stick);}
-.quiz-explain.show{display:block;}
+        .stripe-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-family: var(--font-code);
+            font-size: 0.7rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
 
-button.btn{background:var(--stick); color:#FFFFFF; border:none; border-radius:10px; padding:14px 26px; font-family:'Varela Round', sans-serif; font-weight:700; font-size:17px; cursor:pointer; transition:transform .1s, opacity .15s;}
-button.btn:hover{opacity:0.9;}
-button.btn:active{transform:scale(0.97);}
-button.btn.teacher{background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: #FFF;}
+        .pulse-green {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: #4ade80;
+            box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.4);
+            animation: pulse 1.8s infinite;
+        }
 
-.completion{text-align:center; padding:45px 24px; background:var(--panel); border:3px solid var(--ok); border-radius:var(--radius); display:none; margin-top:35px;}
-.completion.show{display:block;}
-.completion h2 { font-size: 28px; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-.footer-note{text-align:center; color:var(--muted2); font-size:14px; margin-top:60px;}
-::-webkit-scrollbar{width:10px; height:10px;}
-::-webkit-scrollbar-thumb{background:#C8BC9D; border-radius:5px;}
-</style>
+        /* ---------- כותרת עליונה ---------- */
+        header {
+            background: var(--paper);
+            border-bottom: 2px solid var(--line);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .header-content { display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 16px; }
+        @media (min-width: 900px) { .header-content { flex-direction: row; } }
+        .header-title-area { display: flex; align-items: center; gap: 16px; }
+        header h1 { font-size: 1.35rem; line-height: 1.3; color: var(--red-text); }
+        header p { font-size: 0.85rem; line-height: 1.5; color: var(--muted); font-weight: 500; }
+        
+        .crazy-avatar {
+            width: 60px; height: 60px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
+            border: 3px solid var(--red); background: #fff;
+            transform: rotate(8deg);
+        }
+
+        .header-badges { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; align-items: center; }
+        .badge {
+            background: var(--paper); border: 2px solid var(--line); color: var(--ink);
+            font-size: 0.85rem; font-weight: 700; padding: 4px 16px; border-radius: 12px; line-height: 1.7;
+        }
+        .badge-success { border-color: var(--ok-edge); color: var(--ok-edge); }
+        body.dark .badge-success { color: #6ee7b7; border-color: #6ee7b7; }
+
+        .mode-btn {
+            min-height: 48px; padding: 0 18px; border-radius: 12px;
+            background: var(--paper); color: var(--ink); border: 2px solid var(--line);
+            font-weight: 700; font-size: 0.85rem;
+        }
+        .mode-btn:hover { border-color: var(--red); }
+
+        /* ---------- ניווט טאבים ---------- */
+        .nav-tabs-container { margin: 20px 0 10px; }
+        .nav-tabs-container nav {
+            display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px;
+            scrollbar-width: thin;
+        }
+        .tab-btn {
+            background: var(--paper); border: 2px solid var(--line); border-radius: 14px;
+            padding: 10px 18px; font-weight: 800; font-size: 0.8rem; color: var(--ink);
+            white-space: nowrap; transition: all 0.2s;
+        }
+        .tab-btn:hover { border-color: var(--red); }
+        .tab-btn.active { background: var(--red); border-color: var(--red); color: #ffffff; }
+
+        /* ---------- פריסה ראשית ---------- */
+        main { flex-grow: 1; padding: 20px 0 40px; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* ---------- כרטיסים ---------- */
+        .card {
+            background: var(--paper); border: 2px solid var(--line); border-radius: 22px;
+            padding: clamp(20px, 3.5vw, 32px); margin-bottom: 24px; box-shadow: var(--shadow);
+        }
+        .card-title {
+            font-size: clamp(1.2rem, 3vw, 1.6rem); color: var(--red-text); margin-bottom: 18px; line-height: 1.4;
+        }
+
+        .section-box {
+            padding: 16px 20px; border-radius: 16px; border-right: 8px solid var(--c-sky);
+            background: var(--c-sky-bg); margin-bottom: 16px;
+        }
+        .section-box h4 { font-size: 1.05rem; color: var(--c-sky); margin-bottom: 6px; }
+        .section-box p { font-size: 0.95rem; color: var(--ink); line-height: 1.7; }
+
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+
+        /* ---------- משימות ורכיבים ---------- */
+        .task-box {
+            background: var(--bg); border: 2px solid var(--line); border-radius: 16px;
+            padding: 20px; margin-bottom: 18px;
+        }
+        .task-title { font-weight: 800; font-size: 1rem; color: var(--red-text); margin-bottom: 8px; }
+        .task-desc { font-size: 0.85rem; color: var(--ink); margin-bottom: 12px; }
+        .task-step-list { padding-right: 20px; font-size: 0.85rem; line-height: 1.8; color: var(--soft); }
+
+        .accordion { border: 2px solid var(--line); border-radius: 16px; overflow: hidden; margin-bottom: 14px; background: var(--paper); }
+        .acc-head { padding: 16px 20px; background: var(--paper); cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 800; font-size: 0.95rem; }
+        .acc-head:hover { background: var(--bg); }
+        .acc-body { max-height: 0; overflow: hidden; transition: max-height .3s ease; background: var(--paper); }
+        .acc-body-inner { padding: 0 20px 20px; font-size: 0.85rem; }
+        .accordion.open .acc-body { max-height: 800px; }
+        .acc-arrow { transition: transform .3s; color: var(--muted); font-size: 1rem; }
+        .accordion.open .acc-arrow { transform: rotate(180deg); }
+
+        /* ---------- TERMINAL / CLI ---------- */
+        .terminal {
+            background: #090d16; border: 2px solid #1e293b; border-radius: 16px;
+            padding: 18px; font-family: var(--font-code); font-size: 0.8rem; direction: ltr; text-align: left;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4); margin: 16px 0;
+        }
+        .term-topbar { display: flex; gap: 8px; margin-bottom: 12px; align-items: center; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .dot.r { background: #ef4444; } .dot.y { background: #f59e0b; } .dot.g { background: #10b981; }
+        .term-output { white-space: pre-wrap; color: #cbd5e1; margin-bottom: 12px; min-height: 60px; line-height: 1.6; }
+        .term-output .ok { color: #4ade80; display: block; direction: rtl; text-align: right; font-weight: 700; margin-top: 6px; }
+        .term-output .bad { color: #f87171; display: block; direction: rtl; text-align: right; font-weight: 700; margin-top: 6px; }
+        .term-output .hint { color: #fde68a; display: block; direction: rtl; text-align: right; font-weight: 700; margin-top: 6px; }
+        .term-input-row { display: flex; align-items: center; gap: 8px; border-top: 1px solid #1e293b; padding-top: 10px; }
+        .prompt { color: #38bdf8; font-weight: 800; white-space: nowrap; }
+        input.term-input { flex: 1; background: transparent; border: none; color: #ffffff; font-family: var(--font-code); font-size: 0.8rem; outline: none; }
+
+        /* ---------- QUIZ ---------- */
+        .quiz-q { background: var(--bg); border: 2px solid var(--line); border-radius: 16px; padding: 20px; margin-bottom: 18px; }
+        .quiz-q-num { font-family: var(--font-code); color: var(--muted); font-size: 0.75rem; margin-bottom: 6px; font-weight: 700; }
+        .quiz-q-text { font-size: 0.95rem; font-weight: 800; color: var(--ink); margin-bottom: 12px; }
+        .quiz-opts { display: flex; flex-direction: column; gap: 8px; }
+        .quiz-opt { background: var(--paper); border: 2px solid var(--line); border-radius: 12px; padding: 12px 16px; cursor: pointer; text-align: right; font-size: 0.85rem; font-weight: 600; transition: border-color 0.2s; }
+        .quiz-opt:hover { border-color: var(--red); }
+        .quiz-opt.correct { background: var(--ok-bg); border-color: var(--ok-edge); color: var(--ok-edge); font-weight: 800; }
+        .quiz-opt.wrong { background: var(--bad-bg); border-color: var(--bad-edge); color: var(--bad-edge); font-weight: 800; }
+        .quiz-opt.disabled { pointer-events: none; }
+        .quiz-explain { margin-top: 12px; padding: 12px 16px; background: var(--c-sky-bg); border-right: 4px solid var(--c-sky); border-radius: 10px; font-size: 0.8rem; font-weight: 700; color: var(--ink); display: none; }
+        .quiz-explain.show { display: block; }
+
+        .action-btn {
+            background: var(--red); color: #ffffff; font-size: 0.85rem; font-weight: 800;
+            padding: 12px 24px; border: none; border-radius: 12px; cursor: pointer;
+            text-align: center; transition: background 0.2s;
+        }
+        .action-btn:hover { background: #991b1b; }
+
+        /* ---------- MODAL & FLOATING BOT ---------- */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(4px);
+            z-index: 1000; display: none; align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-card {
+            background: var(--paper); border: 2px solid var(--line); border-radius: 20px;
+            width: 100%; max-width: 900px; height: 85vh; display: flex; flex-direction: column; overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+        .modal-header { padding: 14px 20px; border-bottom: 2px solid var(--line); display: flex; justify-content: space-between; align-items: center; background: var(--bg); }
+
+        .floating-bot-container { position: fixed; bottom: 20px; left: 20px; z-index: 1000; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+        .floating-bot-card {
+            width: 320px; max-width: calc(100vw - 40px);
+            background: var(--paper); color: var(--ink);
+            border: 2px solid var(--line); border-radius: 20px;
+            padding: 18px; box-shadow: 0 14px 34px rgba(0,0,0,0.3);
+            display: flex; flex-direction: column; gap: 12px;
+        }
+        .bot-header { display: flex; align-items: center; gap: 14px; border-bottom: 2px dashed var(--line); padding-bottom: 12px; }
+        .bot-header h4 { font-size: 1rem; color: var(--red-text); line-height: 1.4; }
+        .bot-header span.sub { font-size: 0.75rem; color: var(--muted); }
+        .bot-avatar-spinning {
+            width: 54px; height: 54px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
+            border: 3px solid var(--red); background: #fff; transform: rotate(15deg);
+        }
+        .bot-toggle-btn {
+            display: flex; align-items: center; gap: 10px;
+            background: var(--paper); border: 2px solid var(--red); color: var(--red-text);
+            padding: 0 22px; min-height: 56px; border-radius: 9999px; font-weight: 800; font-size: 0.85rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        }
+        .gemini-bot-btn {
+            background: var(--red); color: #fff; text-decoration: none; padding: 12px 14px; border-radius: 14px;
+            font-size: 0.85rem; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .gemini-bot-btn:hover { background: #991b1b; }
+
+        footer {
+            background: var(--paper); color: var(--muted); padding: 22px 0 100px; text-align: center; font-size: 0.8rem;
+            margin-top: auto; border-top: 2px solid var(--line);
+        }
+
+        /* ---------- RTL / LTR Formats ---------- */
+        .eng-tag {
+            display: inline-block; direction: ltr; unicode-bidi: isolate; text-align: left;
+            font-family: var(--font-code); font-size: 0.8em; font-weight: 700; line-height: 1.5;
+            padding: 0 0.45em; margin: 0 0.15em; border-radius: 7px;
+            border: 1.5px solid var(--term); background: var(--term-soft); color: var(--term);
+            white-space: nowrap;
+        }
+        .mono, code {
+            direction: ltr !important; unicode-bidi: isolate !important;
+            font-family: var(--font-code); font-size: 0.85em; font-weight: 700;
+            background: var(--bg); border: 1.5px solid var(--line); padding: 1px 6px;
+            border-radius: 6px; color: var(--ink); display: inline-block;
+        }
+        .num { direction: ltr; unicode-bidi: isolate; font-family: var(--font-code); font-weight: 700; font-size: 0.94em; color: var(--red-text); }
+        .aside {
+            display: inline; padding: 1px 10px; margin: 0 3px; border-radius: 999px;
+            background: var(--aside-bg); border: 1px solid var(--aside-edge); color: var(--aside-ink);
+            font-weight: 600; font-size: 0.92em; -webkit-box-decoration-break: clone; box-decoration-break: clone;
+        }
+    </style>
 </head>
 <body>
 
-<div class="wrap">
-
-<header class="hero">
-  <div class="hero-content">
-    <div class="hero-text">
-      <h1 class="title">צעדים ראשונים ב-<b>Packet Tracer</b></h1>
-      <p class="subtitle">ברוכים הבאים לעולם הרשתות! בלומדה זו תלמדו איך לבנות רשת מקומית ראשונה, לחבר רכיבים, להגדיר כתובות IP ושרת DHCP, ולהבין בדיוק מה קורה ב-7 השכבות במעבר מידע.</p>
+    <!-- 🔴 הסטרייפ העליון -->
+    <div class="top-stripe">
+        <div class="stripe-group">
+            <span class="stripe-badge"><span class="pulse-green"></span> PACKET TRACER LAB</span>
+            <span>📅 <b>תאריך עדכון:</b> <span id="current-date"></span></span>
+        </div>
+        <div class="stripe-group">
+            <button onclick="openDocModal()" style="background: rgba(255,255,255,0.2); color: #fff; border: none; padding: 2px 10px; border-radius: 12px; font-weight: 800; font-size: 0.7rem; cursor: pointer; display: flex; align-items: center; gap: 4px;">
+                <i data-lucide="file-text" style="width: 14px; height: 14px;"></i> משימות נוספות
+            </button>
+        </div>
     </div>
-    
-    <!-- אזור האווטר + כפתור משימות נוספות -->
-    <div class="avatar-container">
-      <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="אווטר מסתובב" class="crazy-avatar">
-      <button class="btn-extra-tasks" onclick="openDocModal()">
-        <span>משימות נוספות</span>
-        <i data-lucide="file-text" class="w-5 h-5"></i>
-      </button>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="header-title-area">
+                <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="אווטאר" class="crazy-avatar">
+                <div>
+                    <h1>צעדים ראשונים ב-Packet Tracer <span class="aside">לומדה אינטראקטיבית</span></h1>
+                    <p>בניית רשת מקומית ראשונה, חיבור רכיבים, הגדרת IP ושרת DHCP, והבנת 7 השכבות במעבר מידע</p>
+                </div>
+            </div>
+            <div class="header-badges">
+                <span class="badge">האקדמיה לרשתות</span>
+                <button class="mode-btn" id="darkToggleBtn" onclick="toggleDark()">🌙 מצב לילה</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Nav Tabs -->
+    <div class="nav-tabs-container container">
+        <nav>
+            <button onclick="switchTab('s1')" id="tab-s1" class="tab-btn active">1. משימות בנייה בסיסיות</button>
+            <button onclick="switchTab('s2')" id="tab-s2" class="tab-btn">2. מודל 7 השכבות OSI</button>
+            <button onclick="switchTab('s3')" id="tab-s3" class="tab-btn">3. תרגול CLI</button>
+            <button onclick="switchTab('s4')" id="tab-s4" class="tab-btn">4. מבדק 10 שאלות מסכם</button>
+        </nav>
     </div>
-  </div>
-</header>
 
-<!-- חלק 1: משימות בנייה בסיסיות -->
-<section id="s1">
+    <!-- Main Content Area -->
+    <main class="container">
 
-<div class="task-box">
-  <div class="task-title">משימה 1: היכרות עם סביבת העבודה והנחת ציוד קצה</div>
-  <div class="task-desc">נפתח את הסימולטור ונניח את הרכיבים הראשונים שלנו על לוח העבודה (Workspace).</div>
-  <ul class="task-step-list">
-    <li>בתחתית המסך משמאל, לחצו על קטגוריית <b>End Devices</b>.</li>
-    <li>גררו למרכז המסך שני מחשבים אישיים (<code class="term-code-inline">PC-PT</code>) וקראו להם <code class="term-code-inline">PC0</code> ו-<code class="term-code-inline">PC1</code>.</li>
-  </ul>
-</div>
+        <!-- SECTION 1: LAB TASKS -->
+        <section id="content-s1" class="tab-content active">
+            <div class="card">
+                <h2 class="card-title">משימות בנייה בסביבת הסימולטור</h2>
 
-<div class="task-box">
-  <div class="task-title">משימה 2: חיבור רכיבים באמצעות סוויטש ואימות נוריות ירוקות</div>
-  <div class="task-desc">מחשבים אינם יכולים לדבר ישירות ללא רכיב מקשר ברשת מקומית. נוסיף מתג (Switch) ונחבר אותם.</div>
-  <ul class="task-step-list">
-    <li>נכנסים לקטגוריית <b>Network Devices ➔ Switches</b> וגוררים סוויטש מדגם <code class="term-code-inline">2960</code>.</li>
-    <li>בוחרים בברק הכתום (<b>Connections</b>), בוחרים כבל ישר (<code class="term-code-inline">Copper Straight-Through</code>).</li>
-    <li>מחברים את פורט <code class="term-code-inline">FastEthernet0</code> של מחשב <code class="term-code-inline">PC0</code> לפורט <code class="term-code-inline">FastEthernet0/1</code> בסוויטש.</li>
-    <li>מחברים באותו אופן את <code class="term-code-inline">PC1</code> לפורט <code class="term-code-inline">FastEthernet0/2</code>.</li>
-    <li><b>חווית הצלחה:</b> חכו כ-30 שניות עד שהנוריות הכתומות יהפכו לירוקות (Spanning Tree Protocol סוגר לולאות)!</li>
-  </ul>
-</div>
+                <div class="task-box">
+                    <div class="task-title">משימה 1: היכרות עם סביבת העבודה והנחת ציוד קצה</div>
+                    <div class="task-desc">נפתח את הסימולטור ונניח את הרכיבים הראשונים שלנו על לוח העבודה Workspace.</div>
+                    <ul class="task-step-list">
+                        <li>בתחתית המסך משמאל, לחצו על קטגוריית <b>End Devices</b>.</li>
+                        <li>גררו למרכז המסך שני מחשבים אישיים <span class="eng-tag">PC-PT</span> וקראו להם <span class="eng-tag">PC0</span> ו-<span class="eng-tag">PC1</span>.</li>
+                    </ul>
+                </div>
 
-<div class="task-box">
-  <div class="task-title">משימה 3: הגדרת כתובות IP סטטיות ובדיקת תקשורת Ping</div>
-  <div class="task-desc">נלבשת את שכבה 3 (כתובות לוגיות) כדי שהמחשבים יוכלו לזהות זה את זה.</div>
-  <ul class="task-step-list">
-    <li>לחצו על <code class="term-code-inline">PC0</code> ➔ עברו ל-<b>Desktop</b> ➔ לחצו על <b>IP Configuration</b>.</li>
-    <li>הגדירו כתובת סטטית: IPv4: <code class="term-code-inline">192.168.1.10</code> | Subnet Mask: <code class="term-code-inline">255.255.255.0</code>.</li>
-    <li>לחצו על <code class="term-code-inline">PC1</code> והגדירו: IPv4: <code class="term-code-inline">192.168.1.20</code> | Subnet Mask: <code class="term-code-inline">255.255.255.0</code>.</li>
-    <li>פתחו את ה-<b>Command Prompt</b> ב-<code class="term-code-inline">PC0</code> והקלידו: <code class="term-code-inline">ping 192.168.1.20</code>. ראיתם 4 תשובות מצליחות (<code class="term-code-inline">Reply from...</code>)? יש תקשורת! 🎉</li>
-  </ul>
-</div>
+                <div class="task-box">
+                    <div class="task-title">משימה 2: חיבור רכיבים באמצעות סוויטש ואימות נוריות ירוקות</div>
+                    <div class="task-desc">מחשבים אינם יכולים לדבר ישירות ללא רכיב מקשר ברשת מקומית. נוסיף מתג Switch ונחבר אותם.</div>
+                    <ul class="task-step-list">
+                        <li>נכנסים לקטגוריית <b>Network Devices ➔ Switches</b> וגוררים סוויטש מדגם <span class="eng-tag">2960</span>.</li>
+                        <li>בוחרים בברק הכתום <b>Connections</b>, בוחרים כבל ישר <span class="eng-tag">Copper Straight-Through</span>.</li>
+                        <li>מחברים את פורט <span class="eng-tag">FastEthernet0</span> של מחשב <span class="eng-tag">PC0</span> לפורט <span class="eng-tag">FastEthernet0/1</span> בסוויטש.</li>
+                        <li>מחברים באותו אופן את <span class="eng-tag">PC1</span> לפורט <span class="eng-tag">FastEthernet0/2</span>.</li>
+                        <li><b>חוויית הצלחה:</b> חכו כ-30 שניות עד שהנוריות הכתומות יהפכו לירוקות סוגר לולאות Spanning Tree Protocol!</li>
+                    </ul>
+                </div>
 
-<div class="task-box">
-  <div class="task-title">משימה 4: הוספת שרת DHCP וחלוקת כתובות אוטומטית</div>
-  <div class="task-desc">ברשתות אמיתיות אנחנו לא מגדירים IP ידנית לכל מחשב. נביא שרת שיחלק כתובות אוטומטית!</div>
-  <ul class="task-step-list">
-    <li>גררו שרת (<code class="term-code-inline">Server-PT</code>) מ-End Devices וחברו אותו לסוויטש בפורט <code class="term-code-inline">FastEthernet0/24</code>.</li>
-    <li>תנו לשרת כתובת IP סטטית: <code class="term-code-inline">192.168.1.1</code> (מאסק: <code class="term-code-inline">255.255.255.0</code>).</li>
-    <li>כנסו בשרת לבלשונית <b>Services ➔ DHCP</b> ➔ שנו את המצב ל-<b>On</b> ➔ הגדירו Start IP: <code class="term-code-inline">192.168.1.100</code> ➔ לחצו <b>Save</b>.</li>
-    <li>עברו למחשבים, שנו ב-IP Configuration מ-Static ל-<b>DHCP</b> וראו כיצד הם מקבלים IP אוטומטית (<code class="term-code-inline">DHCP Request Successful</code>)!</li>
-  </ul>
-</div>
+                <div class="task-box">
+                    <div class="task-title">משימה 3: הגדרת כתובות IP סטטיות ובדיקת תקשורת Ping</div>
+                    <div class="task-desc">נלביש את שכבה 3 כתובות לוגיות כדי שהמחשבים יוכלו לזהות זה את זה.</div>
+                    <ul class="task-step-list">
+                        <li>לחצו על <span class="eng-tag">PC0</span> ➔ עברו ל-<b>Desktop</b> ➔ לחצו על <b>IP Configuration</b>.</li>
+                        <li>הגדירו כתובת סטטית: IPv4: <span class="eng-tag">192.168.1.10</span> | Subnet Mask: <span class="eng-tag">255.255.255.0</span>.</li>
+                        <li>לחצו על <span class="eng-tag">PC1</span> והגדירו: IPv4: <span class="eng-tag">192.168.1.20</span> | Subnet Mask: <span class="eng-tag">255.255.255.0</span>.</li>
+                        <li>פתחו את ה-<b>Command Prompt</b> ב-<span class="eng-tag">PC0</span> והקלידו: <span class="eng-tag">ping 192.168.1.20</span>. ראיתם 4 תשובות מצליחות Reply from? יש תקשורת! 🎉</li>
+                    </ul>
+                </div>
 
-<div class="task-box">
-  <div class="task-title">משימה 5: מעבר למצב Simulation ושליחת מעטפה (PDU)</div>
-  <div class="task-desc">נראה במו עינינו את החבילה זז ברשת בזמן אמת!</div>
-  <ul class="task-step-list">
-    <li>עברו בפינה הימנית התחתונה ממצב <b>Realtime</b> למצב <b>Simulation</b>.</li>
-    <li>לחצו על האייקון של המעטפה הסגורה (Add Simple PDU).</li>
-    <li>לחצו על <code class="term-code-inline">PC0</code> כמקור, ואז על <code class="term-code-inline">PC1</code> כיעד.</li>
-    <li>לחצו על כפתור ה-<b>Play</b> (או Forward) ותראו את המעטפה נעה מהמחשב לסוויטש ובחזרה!</li>
-  </ul>
-</div>
-</section>
+                <div class="task-box">
+                    <div class="task-title">משימה 4: הוספת שרת DHCP וחלוקת כתובות אוטומטית</div>
+                    <div class="task-desc">ברשתות אמיתיות אנחנו לא מגדירים IP ידנית לכל מחשב. נביא שרת שיחלק כתובות אוטומטית!</div>
+                    <ul class="task-step-list">
+                        <li>גררו שרת <span class="eng-tag">Server-PT</span> מ-End Devices וחברו אותו לסוויטש בפורט <span class="eng-tag">FastEthernet0/24</span>.</li>
+                        <li>תנו לשרת כתובת IP סטטית: <span class="eng-tag">192.168.1.1</span> מאסק: <span class="eng-tag">255.255.255.0</span>.</li>
+                        <li>כנסו בשרת לבלשונית <b>Services ➔ DHCP</b> ➔ שנו את המצב ל-<b>On</b> ➔ הגדירו Start IP: <span class="eng-tag">192.168.1.100</span> ➔ לחצו <b>Save</b>.</li>
+                        <li>עברו למחשבים, שנו ב-IP Configuration מ-Static ל-<b>DHCP</b> וראו כיצד הם מקבלים IP אוטומטית DHCP Request Successful!</li>
+                    </ul>
+                </div>
 
-<!-- חלק 2: מודל 7 השכבות (OSI) -->
-<section id="s2">
-<div class="section-head">
-  <div class="section-num">02 — תיאוריה וחשיבה</div>
-  <h2 class="section-title">7 השכבות במודל <code class="term-code-inline">OSI</code> ב-<code class="term-code-inline">Packet Tracer</code></h2>
-</div>
+                <div class="task-box">
+                    <div class="task-title">משימה 5: מעבר למצב Simulation ושליחת מעטפה PDU</div>
+                    <div class="task-desc">נראה במו עינינו את החבילה זזה ברשת בזמן אמת!</div>
+                    <ul class="task-step-list">
+                        <li>עברו בפינה הימנית התחתונה ממצב <b>Realtime</b> למצב <b>Simulation</b>.</li>
+                        <li>לחצו על האייקון של המעטפה הסגורה Add Simple PDU.</li>
+                        <li>לחצו על <span class="eng-tag">PC0</span> כמקור, ואז על <span class="eng-tag">PC1</span> כיעד.</li>
+                        <li>לחצו על כפתור ה-<b>Play</b> או Forward ותראו את המעטפה נעה מהמחשב לסוויטש ובחזרה!</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
-<p>כאשר אתם לוחצים על מעטפה במצב <code class="term-code-inline">Simulation</code> ב-<code class="term-code-inline">Packet Tracer</code>, נפתחת חלונית המציגה את מודל השכבות. הנה מה שקורה בכל שכבה מהרגע שהפורט מחובר ועד ליישום:</p>
+        <!-- SECTION 2: OSI MODEL -->
+        <section id="content-s2" class="tab-content">
+            <div class="card">
+                <h2 class="card-title">7 השכבות במודל <span class="eng-tag">OSI</span> ב-Packet Tracer</h2>
+                <p style="font-size: 0.9rem; margin-bottom: 16px;">כאשר אתם לוחצים על מעטפה במצב <span class="eng-tag">Simulation</span> ב-Packet Tracer, נפתחת חלונית המציגה את מודל השכבות. הנה מה שקורה בכל שכבה מהרגע שהפורט מחובר ועד ליישום:</p>
 
-<div id="acc1" class="accordion">
-  <div class="acc-head" onclick="toggleAcc('acc1')"><div>שכבה 1: השכבה הפיזית <code class="term-code-inline">Physical Layer</code></div><div class="acc-arrow">▾</div></div>
-  <div class="acc-body"><div class="acc-body-inner">
-    <p><b>מה קורה ב-<code class="term-code-inline">Packet Tracer</code>?</b> חיבור הכבל <code class="term-code-inline">Ethernet Cable</code>, הפורט הפיזי <code class="term-code-inline">FastEthernet0</code> והמרת המידע לאותות חשמליים או אופטיים, ביטים של 0 ו-1.</p>
-    <p><b>בדיקת תקינות:</b> הנורית הירוקה בפורט מעידה על סיגנל פיזי תקין <code class="term-code-inline">Link Up</code>.</p>
-  </div></div>
-</div>
+                <div id="acc1" class="accordion">
+                    <div class="acc-head" onclick="toggleAcc('acc1')"><span>שכבה 1: השכבה הפיזית <span class="eng-tag">Physical Layer</span></span><span class="acc-arrow">▾</span></div>
+                    <div class="acc-body"><div class="acc-body-inner">
+                        <p><b>מה קורה ב-Packet Tracer?</b> חיבור הכבל <span class="eng-tag">Ethernet Cable</span>, הפורט الפיזי <span class="eng-tag">FastEthernet0</span> והמרת המידע לאותות חשמליים או אופטיים, ביטים של 0 ו-1.</p>
+                        <p><b>בדיקת תקינות:</b> הנורית הירוקה בפורט מעידה על סיגנל פיזי תקין <span class="eng-tag">Link Up</span>.</p>
+                    </div></div>
+                </div>
 
-<div id="acc2" class="accordion">
-  <div class="acc-head" onclick="toggleAcc('acc2')"><div>שכבה 2: שכבת ערוץ הנתונים <code class="term-code-inline">Data Link Layer</code></div><div class="acc-arrow">▾</div></div>
-  <div class="acc-body"><div class="acc-body-inner">
-    <p><b>מה קורה ב-<code class="term-code-inline">Packet Tracer</code>?</b> עבודה עם כתובות פיזיות <code class="term-code-inline">MAC Address</code> ומסגרות <code class="term-code-inline">Frames</code>. הסוויטש קורא בשכבה זו את כתובת ה-<code class="term-code-inline">MAC</code> של היעד ומעביר את הפריים לפורט הנכון בלבד.</p>
-  </div></div>
-</div>
+                <div id="acc2" class="accordion">
+                    <div class="acc-head" onclick="toggleAcc('acc2')"><span>שכבה 2: שכבת ערוץ הנתונים <span class="eng-tag">Data Link Layer</span></span><span class="acc-arrow">▾</span></div>
+                    <div class="acc-body"><div class="acc-body-inner">
+                        <p><b>מה קורה ב-Packet Tracer?</b> עבודה עם כתובות פיזיות <span class="eng-tag">MAC Address</span> ומסגרות <span class="eng-tag">Frames</span>. הסוויטש קורא בשכבה זו את כתובת ה-<span class="eng-tag">MAC</span> של היעד ומעביר את הפריים לפורט הנכון בלבד.</p>
+                    </div></div>
+                </div>
 
-<div id="acc3" class="accordion">
-  <div class="acc-head" onclick="toggleAcc('acc3')"><div>שכבה 3: שכבת הרשת <code class="term-code-inline">Network Layer</code></div><div class="acc-arrow">▾</div></div>
-  <div class="acc-body"><div class="acc-body-inner">
-    <p><b>מה קורה ב-<code class="term-code-inline">Packet Tracer</code>?</b> עבודה עם כתובות לוגיות <code class="term-code-inline">IPv4</code> / <code class="term-code-inline">IPv6</code> וחבילות <code class="term-code-inline">Packets</code>. בדיקות <code class="term-code-inline">Ping</code> משתמשות בפרוטוקול <code class="term-code-inline">ICMP</code> בשכבה זו כדי לבדוק שרשת המקור והיעד יכולות לתקשר.</p>
-  </div></div>
-</div>
+                <div id="acc3" class="accordion">
+                    <div class="acc-head" onclick="toggleAcc('acc3')"><span>שכבה 3: שכבת הרשת <span class="eng-tag">Network Layer</span></span><span class="acc-arrow">▾</span></div>
+                    <div class="acc-body"><div class="acc-body-inner">
+                        <p><b>מה קורה ב-Packet Tracer?</b> עבודה עם כתובות לוגיות <span class="eng-tag">IPv4</span> / <span class="eng-tag">IPv6</span> וחבילות <span class="eng-tag">Packets</span>. בדיקות <span class="eng-tag">Ping</span> משתמשות בפרוטוקול <span class="eng-tag">ICMP</span> בשכבה זו כדי לבדוק שרשת המקור והיעד יכולות לתקשר.</p>
+                    </div></div>
+                </div>
 
-<div id="acc4" class="accordion">
-  <div class="acc-head" onclick="toggleAcc('acc4')"><div>שכבה 4: שכבת התחבורה <code class="term-code-inline">Transport Layer</code></div><div class="acc-arrow">▾</div></div>
-  <div class="acc-body"><div class="acc-body-inner">
-    <p><b>מה קורה ב-<code class="term-code-inline">Packet Tracer</code>?</b> ניהול הקשר מקצה לקצה בעזרת פרוטוקולי <code class="term-code-inline">TCP</code>, אמין ומבוסס חיבור, או <code class="term-code-inline">UDP</code>, מהיר וללא אישור הגעה, ופורטים של שירותים כמו למשל <code class="term-code-inline">Port 80</code> ל-<code class="term-code-inline">HTTP</code> או <code class="term-code-inline">Port 67/68</code> ל-<code class="term-code-inline">DHCP</code>.</p>
-  </div></div>
-</div>
+                <div id="acc4" class="accordion">
+                    <div class="acc-head" onclick="toggleAcc('acc4')"><span>שכבה 4: שכבת התחבורה <span class="eng-tag">Transport Layer</span></span><span class="acc-arrow">▾</span></div>
+                    <div class="acc-body"><div class="acc-body-inner">
+                        <p><b>מה קורה ב-Packet Tracer?</b> ניהול הקשר מקצה לקצה בעזרת פרוטוקולי <span class="eng-tag">TCP</span> אמין ומבוסס חיבור, או <span class="eng-tag">UDP</span> מהיר וללא אישור הגעה, ופורטים של שירותים כמו למשל <span class="eng-tag">Port 80</span> ל-<span class="eng-tag">HTTP</span> או <span class="eng-tag">Port 67/68</span> ל-<span class="eng-tag">DHCP</span>.</p>
+                    </div></div>
+                </div>
 
-<div id="acc5" class="accordion">
-  <div class="acc-head" onclick="toggleAcc('acc5')"><div>שכבות 5-7: השיחה, המצג והאפליקציה <code class="term-code-inline">Session, Presentation, Application</code></div><div class="acc-arrow">▾</div></div>
-  <div class="acc-body"><div class="acc-body-inner">
-    <p><b>מה קורה ב-<code class="term-code-inline">Packet Tracer</code>?</b> התוכנות המופעלות בתוך המחשב או השרת: דפדפן אינטרנט <code class="term-code-inline">Web Browser</code> / <code class="term-code-inline">HTTP</code>, שירות <code class="term-code-inline">DHCP</code> לקבלת כתובת, <code class="term-code-inline">Command Prompt</code> או שירותי <code class="term-code-inline">DNS</code>.</p>
-  </div></div>
-</div>
-</section>
+                <div id="acc5" class="accordion">
+                    <div class="acc-head" onclick="toggleAcc('acc5')"><span>שכבות 5-7: השיחה, המצג והאפליקציה <span class="eng-tag">Session, Presentation, Application</span></span><span class="acc-arrow">▾</span></div>
+                    <div class="acc-body"><div class="acc-body-inner">
+                        <p><b>מה קורה ב-Packet Tracer?</b> התוכנות המופעלות בתוך המחשב או השרת: דפדפן אינטרנט <span class="eng-tag">Web Browser / HTTP</span>, שירות <span class="eng-tag">DHCP</span> לקבלת כתובת, <span class="eng-tag">Command Prompt</span> או שירותי <span class="eng-tag">DNS</span>.</p>
+                    </div></div>
+                </div>
+            </div>
+        </section>
 
-<!-- חלק 3: הדמיית CLI תרגול -->
-<section id="s3">
-<div class="section-head">
-  <div class="section-num">03 — תרגול CLI</div>
-  <h2 class="section-title">תרגול פקודות בדיקת רשת בטרמינל 💻</h2>
-</div>
-<p>הקלידו את הפקודה לבדיקת כתובת ה-IP בטרמינל המחשב ולאחר מכן בצעו פינג לשרת DHCP (<code class="term-code-inline">192.168.1.1</code>).</p>
+        <!-- SECTION 3: CLI INTERACTIVE SIMULATOR -->
+        <section id="content-s3" class="tab-content">
+            <div class="card">
+                <h2 class="card-title">תרגול פקודות בדיקת רשת בטרמינל 💻</h2>
+                <p style="font-size: 0.9rem; margin-bottom: 12px;">הקלידו את הפקודה לבדיקת כתובת ה-IP בטרמינל המחשב ולאחר מכן בצעו פינג לשרת DHCP: <span class="eng-tag">192.168.1.1</span>.</p>
 
-<div class="task-box">
-  <div class="task-title">משימת CLI: בדיקת הגדרות IP וביצוע Ping</div>
-  <div class="task-progress" id="taskProgress" style="font-size:15px; font-weight:600; color:var(--stick);">שלב 1 מתוך 2</div>
-</div>
+                <div class="section-box">
+                    <h4>משימת CLI: בדיקת הגדרות IP וביצוע Ping</h4>
+                    <span id="taskProgress" style="font-weight: 800; color: var(--c-sky); font-size: 0.85rem;">שלב 1 מתוך 2</span>
+                </div>
 
-<div class="terminal">
-  <div class="term-topbar">
-    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
-    <div style="margin-left:8px; color:var(--muted2); font-size:14px;">PC0 - Command Prompt</div>
-  </div>
-  <div class="term-output" id="termOutput">C:\&gt;
+                <div class="terminal">
+                    <div class="term-topbar">
+                        <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+                        <span style="color: #64748b; font-size: 0.75rem; margin-left: 8px;">PC0 - Command Prompt</span>
+                    </div>
+                    <div class="term-output" id="termOutput">C:\&gt;
 <div class="hint">הקלד ipconfig כדי לבדוק את הכתובת של המחשב ולחץ Enter</div></div>
-  <div class="term-input-row">
-    <div class="prompt" id="termPrompt">C:\&gt;</div>
-    <input type="text" class="term-input" id="termInput" placeholder="Enter command..." onkeydown="if(event.key==='Enter')submitCmd()">
-  </div>
-</div>
-</section>
+                    <div class="term-input-row">
+                        <span class="prompt" id="termPrompt">C:\&gt;</span>
+                        <input type="text" class="term-input" id="termInput" placeholder="Enter command..." onkeydown="if(event.key==='Enter')submitCmd()">
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<!-- חלק 4: מבדק 10 שאלות -->
-<section id="s4">
-<div class="section-head">
-  <div class="section-num">04 — מבדק מסכם</div>
-  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-    <h2 class="section-title" style="margin:0;">מבדק אמריקאי מסכם (10 שאלות) 📝</h2>
-    <button class="btn teacher" onclick="unlockTeacherAnswers()">כניסת מורה 🎓</button>
-  </div>
-</div>
-<div id="quizContainer"></div>
+        <!-- SECTION 4: 10 QUIZ QUESTIONS -->
+        <section id="content-s4" class="tab-content">
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <h2 class="card-title" style="margin: 0;">מבדק אמריקאי מסכם 📝</h2>
+                    <button class="action-btn" onclick="unlockTeacherAnswers()" style="padding: 6px 12px; font-size: 0.75rem;">🔑 כניסת מורה</button>
+                </div>
 
-<div style="text-align:center; margin-top:25px;">
-  <button class="btn" onclick="checkScore()" style="font-size:19px; padding:16px 32px;">בדוק ציון סופי 📊</button>
-</div>
-</section>
+                <div id="quizContainer"></div>
 
-<div class="completion" id="completionBox">
-  <h2 id="scoreTitle">🎉 כל הכבוד!</h2>
-  <p id="scoreText" style="font-size:20px;">סיימת את המבדק בהצלחה.</p>
-</div>
+                <button class="action-btn" onclick="checkScore()" style="width: 100%; margin-top: 16px; font-size: 1rem;">
+                    בדוק ציון סופי 📊
+                </button>
 
-<div class="footer-note">סימולטור אינטראקטיבי ללימוד Packet Tracer — נבנה עבור המורה סהר חכימי 2026</div>
-</div>
+                <div id="completionBox" style="display: none; margin-top: 20px; padding: 20px; text-align: center; background: var(--ok-bg); border: 2px solid var(--ok-edge); border-radius: 16px; color: var(--ok-edge);">
+                    <h2 id="scoreTitle" style="font-size: 1.4rem; margin-bottom: 6px;">🎉 כל הכבוד!</h2>
+                    <p id="scoreText" style="font-size: 0.95rem; font-weight: 700;">סיימת את המבדק בהצלחה.</p>
+                </div>
+            </div>
+        </section>
 
-<!-- Modal לצפייה במסמך משימות נוספות -->
-<div id="docModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[110] hidden flex items-center justify-center p-4 transition-all duration-300">
-  <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-5xl h-[88vh] flex flex-col relative shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300" id="docModalContent">
-    
-    <!-- Topbar Modal -->
-    <div class="flex items-center justify-between bg-slate-800/90 px-6 py-4 border-b border-slate-700">
-      <div class="flex items-center gap-3">
-        <i data-lucide="file-text" class="w-6 h-6 text-blue-400"></i>
-        <h3 class="text-xl font-bold text-white">משימות נוספות - Packet Tracer</h3>
-      </div>
-      <div class="flex items-center gap-3">
-        <a href="https://drive.google.com/file/d/1X6KivQb6VAsYKdcJjaQoXQZiysZ0x-i1/view?usp=sharing" target="_blank" class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl text-sm transition-all shadow-md">
-          <span>פתח בחלון מלא</span>
-          <i data-lucide="external-link" class="w-4 h-4"></i>
-        </a>
-        <button onclick="closeDocModal()" class="text-slate-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-slate-700/60">
-          <i data-lucide="x" class="w-6 h-6"></i>
-        </button>
-      </div>
-    </div>
-    
-    <!-- iFrame Container -->
-    <div class="flex-1 bg-slate-950 relative">
-      <iframe id="docIframe" src="" class="w-full h-full border-0" allow="autoplay"></iframe>
-    </div>
-  </div>
-</div>
+    </main>
 
-<!-- כפתור עזרה צף -->
-<div class="fixed bottom-6 left-6 z-50 no-print">
-    <button id="openHelpModalBtn" class="flex items-center gap-3 bg-gradient-to-r from-blue-700 to-indigo-700 hover:from-blue-800 hover:to-indigo-800 text-white font-bold py-3 px-5 rounded-full shadow-lg shadow-blue-500/20 transition-all duration-300 transform hover:scale-105 group border border-blue-400/30 text-lg">
-        <div class="w-9 h-9 rounded-full border border-white/40 overflow-hidden bg-slate-950 flex-shrink-0 shadow-inner">
-            <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="אווטר בוט עזרה" class="w-full h-full object-cover">
+    <!-- Modal for Additional Tasks Doc -->
+    <div id="docModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <span style="font-weight: 800; font-size: 0.9rem;">משימות נוספות - Packet Tracer</span>
+                <div style="display: flex; gap: 8px;">
+                    <a href="https://drive.google.com/file/d/1X6KivQb6VAsYKdcJjaQoXQZiysZ0x-i1/view?usp=sharing" target="_blank" class="action-btn" style="padding: 6px 12px; font-size: 0.75rem; text-decoration: none;">פתח בחלון מלא 🔗</a>
+                    <button onclick="closeDocModal()" style="background: var(--line); border: none; padding: 6px 12px; border-radius: 8px; font-weight: 800; font-size: 0.8rem; cursor: pointer;">✕</button>
+                </div>
+            </div>
+            <iframe id="docIframe" src="" style="width: 100%; height: 100%; border: none;"></iframe>
         </div>
-        <div>בוט עזרה למשימה</div>
-    </button>
-</div>
+    </div>
 
-<!-- חלונית עזרה צפה (Modal) -->
-<div id="helpModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4 transition-all duration-300">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 max-w-sm w-full text-center relative shadow-2xl shadow-blue-500/5 transform scale-95 transition-transform duration-300" id="helpModalContent">
-        <button id="closeHelpModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors p-1 rounded-lg hover:bg-slate-800">
-            <i data-lucide="x" class="w-6 h-6"></i>
-        </button>
-        
-        <div class="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-blue-400/50 p-1 bg-slate-950 shadow-lg shadow-blue-500/20 overflow-hidden">
-            <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="תמונת בוט עזרה" class="w-full h-full object-cover rounded-full">
+    <!-- Floating Assistant Bot -->
+    <div class="floating-bot-container">
+        <div id="bot-card" class="floating-bot-card" style="display: none;">
+            <div class="bot-header">
+                <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="בוט עזרה" class="bot-avatar-spinning">
+                <div>
+                    <h4>העוזר של סהר 🤖</h4>
+                    <span class="sub">סיוע בלייב במשימות Packet Tracer</span>
+                </div>
+            </div>
+            
+            <p style="font-size: 0.8rem; line-height: 1.6;">
+                נתקעת במשימה? בוט העזרה הרשמי של השיעור זמין כעת לסייע לך בכל שלב ב-Packet Tracer!
+            </p>
+
+            <a href="https://gemini.google.com/gem/167016ac4a4b/66c3b83daa7940ef?usp=sharing" target="_blank" class="gemini-bot-btn">
+                <span>💬 פתח בצ'אט עזרה</span>
+                <i data-lucide="external-link" style="width: 16px; height: 16px;"></i>
+            </a>
         </div>
 
-        <h3 class="text-xl font-black text-white mb-2">נתקעת במשימה?</h3>
-        <p class="text-base text-slate-300 mb-6 leading-relaxed">בוט העזרה הרשמי של השיעור זמין כעת לסייע לך בכל שלב ב-Packet Tracer!</p>
-        
-        <a href="https://gemini.google.com/gem/167016ac4a4b/66c3b83daa7940ef?usp=sharing" target="_blank" class="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-black py-3 px-4 rounded-xl transition-all duration-200 text-lg shadow-lg shadow-blue-500/10">
-            <div>הפעל את בוט העזרה</div>
-            <i data-lucide="external-link" class="w-5 h-5"></i>
-        </a>
+        <button onclick="toggleBotCard()" class="bot-toggle-btn">
+            <span>🤖 צריכים עזרה במשימה?</span>
+        </button>
     </div>
-</div>
 
-<script>
-const PROGRESS_KEY = "pt101_progress";
-const stepIds = ["s1","s2","s3","s4"];
-let progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || "{}");
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>סימולטור אינטראקטיבי ללימוד Packet Tracer — נבנה עבור המורה סהר חכימי 2026</p>
+        </div>
+    </footer>
 
-function markDone(id){
-  progress[id] = true;
-  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
-}
+    <!-- JavaScript Logic -->
+    <script>
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('he-IL', {
+            day: '2-digit', month: '2-digit', year: 'numeric'
+        });
 
-const io = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting && e.intersectionRatio > 0.4){
-      markDone(e.target.id);
-    }
-  });
-}, {threshold:0.4});
-stepIds.forEach(id=>{ const el = document.getElementById(id); if(el) io.observe(el); });
-
-function toggleAcc(id){
-  document.getElementById(id).classList.toggle("open");
-}
-
-/* Modal Google Drive Document */
-function openDocModal(){
-  const modal = document.getElementById('docModal');
-  const modalContent = document.getElementById('docModalContent');
-  const iframe = document.getElementById('docIframe');
-  
-  iframe.src = "https://drive.google.com/file/d/1X6KivQb6VAsYKdcJjaQoXQZiysZ0x-i1/preview";
-  modal.classList.remove('hidden');
-  setTimeout(() => modalContent.classList.remove('scale-95'), 10);
-}
-
-function closeDocModal(){
-  const modal = document.getElementById('docModal');
-  const modalContent = document.getElementById('docModalContent');
-  const iframe = document.getElementById('docIframe');
-  
-  modalContent.classList.add('scale-95');
-  setTimeout(() => {
-    modal.classList.add('hidden');
-    iframe.src = "";
-  }, 150);
-}
-
-/* CLI Simulation */
-const cliSteps = [
-  {
-    expect: /^ipconfig\s*$/i,
-    ok: "IP Address: 192.168.1.10\nSubnet Mask: 255.255.255.0\nDefault Gateway: 0.0.0.0\n\nמעולה! ראית את הגדרות המחשב.",
-    hint: "כעת הקלד ping 192.168.1.1 לבדוק תקשורת לשרת ה-DHCP"
-  },
-  {
-    expect: /^ping\s+192\.168\.1\.1\s*$/i,
-    ok: "Pinging 192.168.1.1 with 32 bytes of data:\nReply from 192.168.1.1: bytes=32 time<1ms TTL=128\nReply from 192.168.1.1: bytes=32 time<1ms TTL=128\nReply from 192.168.1.1: bytes=32 time<1ms TTL=128\nReply from 192.168.1.1: bytes=32 time<1ms TTL=128\n\nPing statistics for 192.168.1.1:\n    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss)\n\nאלוף! יש תקשורת מלאה לשרת!",
-    hint: "סיימת את תרגול ה-CLI בהצלחה! 🏆"
-  }
-];
-let cliStep = 0;
-
-function submitCmd(){
-  const input = document.getElementById("termInput");
-  const val = input.value.trim();
-  const output = document.getElementById("termOutput");
-  const prompt = document.getElementById("termPrompt").textContent;
-  if(val === ""){ return; }
-  if(cliStep >= cliSteps.length){ input.value=""; return; }
-  
-  const step = cliSteps[cliStep];
-  if(step.expect.test(val)){
-    output.innerHTML += "\n" + prompt + " " + val + "\n<div class='ok'>✔ " + step.ok + "</div>";
-    cliStep++;
-    if(cliStep < cliSteps.length){
-      output.innerHTML += "\n<div class='hint'>" + cliSteps[cliStep].hint + "</div>";
-      document.getElementById("taskProgress").textContent = "שלב " + (cliStep+1) + " מתוך " + cliSteps.length;
-    } else {
-      document.getElementById("taskProgress").textContent = "הושלם בהצלחה! ✅";
-      markDone("s3");
-    }
-  } else {
-    output.innerHTML += "\n" + prompt + " " + val + "\n<div class='bad'>✘ פקודה לא נכונה. עיין בהנחיות ונסה שנית.</div>";
-  }
-  input.value = "";
-  output.scrollTop = output.scrollHeight;
-}
-
-/* 10 Quiz Questions */
-const quizData = [
-  {
-    q: "מה תפקידו המרכזי של מתג (Switch) ברשת מקומית (LAN)?",
-    opts: [
-      "לחבר בין רשתות שונות בעולם באמצעות כתובות IP",
-      "לחבר בין מכשירי קצה באותה רשת מקומית ולהעביר פרימים לפי כתובות MAC",
-      "לחלק כתובות IP אוטומטית לכל מחשב שנפתח",
-      "להמיר את שם האתר (כגון google.com) לכתובת IP"
-    ],
-    correct: 1,
-    explain: "סוויטש פועל בשכבה 2 (Data Link) ומעביר מידע בין מחשבים באותה רשת לפי כתובות ה-MAC הפיזיות שלהם."
-  },
-  {
-    q: "איזה פרוטוקול אחראי על חלוקת כתובות IP אוטומטית למחשבים ברשת?",
-    opts: ["DNS", "DHCP", "HTTP", "ICMP"],
-    correct: 1,
-    explain: "פרוטוקול DHCP (Dynamic Host Configuration Protocol) מעניק הגדרות רשת (IP, Subnet, Gateway) באופן אוטומטי."
-  },
-  {
-    q: "באיזו שכבה במודל OSI פועלת כתובת IP?",
-    opts: ["שכבה 1 - Physical", "שכבה 2 - Data Link", "שכבה 3 - Network", "שכבה 4 - Transport"],
-    correct: 2,
-    explain: "כתובת IP היא כתובת לוגית השייכת לשכבת הרשת (Layer 3)."
-  },
-  {
-    q: "מה מייצגת הנורית הירוקה בפורט ב-Packet Tracer לאחר חיבור הכבל?",
-    opts: [
-      "החבילה הגיעה ליעדה בהצלחה",
-      "יש חיבור פיזי תקין בשכבה 1 (Link Up)",
-      "המחשב קיבל כתובת IP משרת DHCP",
-      "השרת סיים לבצע את בדיקת ה-Ping"
-    ],
-    correct: 1,
-    explain: "נורית ירוקה מעידה על קישור פיזי (Physical Link) תקין ופעיל בין הפורטים."
-  },
-  {
-    q: "מה מטרת השימוש בפקודת ping 192.168.1.1 ב-Command Prompt?",
-    opts: [
-      "לשנות את כתובת ה-IP של המחשב",
-      "לבדוק האם קיימת תקשורת בשכבה 3 והאם היעד משיב לחבילות ICMP",
-      "להפעיל את שירות ה-DHCP בשרת",
-      "למחוק את זיכרון המטמון של הסוויטש"
-    ],
-    correct: 1,
-    explain: "פקודת Ping שולחת חבילות ICMP Echo Request כדי לבדוק זמינות ותגובתיות של רכיב יעד ברשת."
-  },
-  {
-    q: "מה קורה כאשר מחשב מוגדר ב-DHCP אך שרת ה-DHCP ברשת כבוי או לא נגיש?",
-    opts: [
-      "המחשב ייכבה באופן אוטומטי",
-      "המחשב ייצר לעצמו כתובת מסוג APIPA (לדוגמה 169.254.x.x)",
-      "המחשב יתחבר מיד לאינטרנט ללא כתובת",
-      "המחשב יקבל את הכתובת 127.0.0.1"
-    ],
-    correct: 1,
-    explain: "בהיעדר תגובה משרת DHCP, מערכת ההפעלה מקצה כתובת עצמית בטווח APIPA (169.254.0.0/16)."
-  },
-  {
-    q: "באיזו שכבה במודל OSI פועלת כתובת ה-MAC?",
-    opts: ["שכבה 1 - Physical", "שכבה 2 - Data Link", "שכבה 3 - Network", "שכבה 7 - Application"],
-    correct: 1,
-    explain: "כתובת MAC היא הכתובת הפיזית הצרובה בכרטיס הרשת ושייכת לשכבת ערוץ הנתונים (Layer 2)."
-  },
-  {
-    q: "מהו היתרון המרכזי של מצב Simulation ב-Packet Tracer?",
-    opts: [
-      "הוא מאיץ את מהירות האינטרנט של המחשב",
-      "הוא מאפשר לראות את מעבר החבילות (PDUs) שלב אחר שלב ולבחון את השכבות השונות",
-      "הוא מגדיר את הראוטרים באופן אוטומטי ללא פקודות",
-      "הוא מחבר את הסימולטור לציוד אמיתי במעבדה"
-    ],
-    correct: 1,
-    explain: "מצב Simulation מאפשר 'להקפיא את הזמן' ולחקור את מבנה החבילות בכל שכבה ושכבה לאורך המסלול."
-  },
-  {
-    q: "באיזה סוג כבל נעשה שימוש בסימולטור לחיבור מחשב (PC) לסוויטש (Switch)?",
-    opts: ["Copper Cross-Over", "Copper Straight-Through", "Console Cable", "Fiber Optic"],
-    correct: 1,
-    explain: "לחיבור מכשירים ממדרג שונה (כמו מחשב קצה לרכיב קישור מסוג סוויטש) משתמשים בכבל ישר (Straight-Through)."
-  },
-  {
-    q: "איזה רכיב נדרש כדי לחבר בין שתי רשתות מקומיות (LAN) שונות בעלות טווח IP שונה?",
-    opts: ["Switch בלבד", "Hub", "Router (נתב)", "כבל ישר נוסף"],
-    correct: 2,
-    explain: "נתב (Router) פועל בשכבה 3 ומיועד להעביר חבילות מידע בין רשתות IP נפרדות ושונות."
-  }
-];
-
-let userAnswers = {};
-
-function renderQuiz(){
-  const container = document.getElementById("quizContainer");
-  if(!container) return;
-  container.innerHTML = "";
-  quizData.forEach((item, qi)=>{
-    const qDiv = document.createElement("div");
-    qDiv.className = "quiz-q";
-    qDiv.innerHTML = "<div class='quiz-q-num'>שאלה " + (qi+1) + " מתוך " + quizData.length + "</div><div class='quiz-q-text'>" + item.q + "</div>";
-    const optsDiv = document.createElement("div");
-    optsDiv.className = "quiz-opts";
-    item.opts.forEach((opt, oi)=>{
-      const b = document.createElement("div");
-      b.className = "quiz-opt";
-      b.textContent = opt;
-      b.onclick = ()=>answerQuiz(qi, oi);
-      optsDiv.appendChild(b);
-    });
-    qDiv.appendChild(optsDiv);
-    const explainDiv = document.createElement("div");
-    explainDiv.className = "quiz-explain";
-    explainDiv.id = "explain-" + qi;
-    explainDiv.textContent = item.explain;
-    qDiv.appendChild(explainDiv);
-    container.appendChild(qDiv);
-  });
-}
-
-function answerQuiz(qi, oi){
-  userAnswers[qi] = oi;
-  const opts = document.querySelectorAll(".quiz-q")[qi].querySelectorAll(".quiz-opt");
-  opts.forEach((el, i)=>{
-    el.classList.remove("correct", "wrong");
-    if(i === oi){
-      el.style.borderColor = "var(--stick)";
-      el.style.background = "#E6DCC8";
-    } else {
-      el.style.borderColor = "var(--border)";
-      el.style.background = "var(--panel2)";
-    }
-  });
-}
-
-function checkScore(){
-  let correctCount = 0;
-  quizData.forEach((item, qi)=>{
-    const selected = userAnswers[qi];
-    const opts = document.querySelectorAll(".quiz-q")[qi].querySelectorAll(".quiz-opt");
-    opts.forEach((el, i)=>{
-      el.classList.add("disabled");
-      if(i === item.correct){
-        el.classList.add("correct");
-      }
-      if(selected === i && selected !== item.correct){
-        el.classList.add("wrong");
-      }
-    });
-    document.getElementById("explain-"+qi).classList.add("show");
-    if(selected === item.correct) correctCount++;
-  });
-  
-  const score = Math.round((correctCount / quizData.length) * 100);
-  const box = document.getElementById("completionBox");
-  document.getElementById("scoreTitle").textContent = score >= 70 ? `🎉 כל הכבוד! הציון שלך: ${score}` : `שופר ונסה שוב! הציון שלך: ${score}`;
-  document.getElementById("scoreText").textContent = `ענית נכון על ${correctCount} מתוך ${quizData.length} שאלות.`;
-  box.classList.add("show");
-  markDone("s4");
-}
-
-function unlockTeacherAnswers() {
-  const pwd = prompt("הזן סיסמת מורה לצפייה בתשובות הנכונות:");
-  if (pwd === "sahar") {
-    alert("אימות מורה הצליח! כל התשובות וההסברים מוצגים כעת.");
-    quizData.forEach((item, qi) => {
-      userAnswers[qi] = item.correct;
-      const opts = document.querySelectorAll(".quiz-q")[qi].querySelectorAll(".quiz-opt");
-      opts.forEach((el, i) => {
-        el.classList.add("disabled");
-        if (i === item.correct) {
-          el.classList.add("correct");
+        function applyDark(on) {
+            document.body.classList.toggle('dark', on);
+            document.getElementById('darkToggleBtn').textContent = on ? '☀️ מצב יום' : '🌙 מצב לילה';
         }
-      });
-      document.getElementById("explain-" + qi).classList.add("show");
-    });
-    markDone("s4");
-  } else if (pwd !== null) {
-    alert("סיסמה שגויה! הגישה נדחתה.");
-  }
-}
+        function toggleDark() {
+            const on = !document.body.classList.contains('dark');
+            applyDark(on);
+            try { localStorage.setItem('pt_lesson_dark', on ? '1' : '0'); } catch (e) {}
+        }
 
-renderQuiz();
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
 
-document.addEventListener('DOMContentLoaded', function() {
-    if (window.lucide) {
-        lucide.createIcons();
-    }
+            const target = document.getElementById('content-' + tabId);
+            if (target) target.classList.add('active');
 
-    const modal = document.getElementById('helpModal');
-    const modalContent = document.getElementById('helpModalContent');
-    const openBtn = document.getElementById('openHelpModalBtn');
-    const closeBtn = document.getElementById('closeHelpModalBtn');
+            const btn = document.getElementById('tab-' + tabId);
+            if (btn) btn.classList.add('active');
+        }
 
-    if(openBtn && modal && modalContent && closeBtn) {
-        openBtn.addEventListener('click', () => {
-            modal.classList.remove('hidden');
-            setTimeout(() => modalContent.classList.remove('scale-95'), 10);
-        });
+        function toggleAcc(id) {
+            document.getElementById(id).classList.toggle("open");
+        }
 
-        closeBtn.addEventListener('click', () => {
-            modalContent.classList.add('scale-95');
-            setTimeout(() => modal.classList.add('hidden'), 150);
-        });
+        function toggleBotCard() {
+            const card = document.getElementById('bot-card');
+            card.style.display = card.style.display === 'none' ? 'flex' : 'none';
+        }
 
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modalContent.classList.add('scale-95');
-                setTimeout(() => modal.classList.add('hidden'), 150);
+        /* Modal Google Drive Document */
+        function openDocModal() {
+            const modal = document.getElementById('docModal');
+            const iframe = document.getElementById('docIframe');
+            iframe.src = "https://drive.google.com/file/d/1X6KivQb6VAsYKdcJjaQoXQZiysZ0x-i1/preview";
+            modal.classList.add('active');
+        }
+
+        function closeDocModal() {
+            const modal = document.getElementById('docModal');
+            const iframe = document.getElementById('docIframe');
+            modal.classList.remove('active');
+            iframe.src = "";
+        }
+
+        /* CLI Simulation */
+        const cliSteps = [
+            {
+                expect: /^ipconfig\s*$/i,
+                ok: "IP Address: 192.168.1.10\nSubnet Mask: 255.255.255.0\nDefault Gateway: 0.0.0.0\n\nמעולה! ראית את הגדרות המחשב.",
+                hint: "כעת הקלד ping 192.168.1.1 לבדוק תקשורת לשרת ה-DHCP"
+            },
+            {
+                expect: /^ping\s+192\.168\.1\.1\s*$/i,
+                ok: "Pinging 192.168.1.1 with 32 bytes of data:\nReply from 192.168.1.1: bytes=32 time<1ms TTL=128\nReply from 192.168.1.1: bytes=32 time<1ms TTL=128\nReply from 192.168.1.1: bytes=32 time<1ms TTL=128\nReply from 192.168.1.1: bytes=32 time<1ms TTL=128\n\nPing statistics for 192.168.1.1:\n    Packets: Sent = 4, Received = 4, Lost = 0 loss\n\nאלוף! יש תקשורת מלאה לשרת!",
+                hint: "סיימת את תרגול ה-CLI בהצלחה! 🏆"
             }
-        });
-    }
-});
-</script>
+        ];
+        let cliStep = 0;
+
+        function submitCmd() {
+            const input = document.getElementById("termInput");
+            const val = input.value.trim();
+            const output = document.getElementById("termOutput");
+            const prompt = document.getElementById("termPrompt").textContent;
+            if (val === "") return;
+            if (cliStep >= cliSteps.length) { input.value = ""; return; }
+            
+            const step = cliSteps[cliStep];
+            if (step.expect.test(val)) {
+                output.innerHTML += "\n" + prompt + " " + val + "\n<div class='ok'>✔ " + step.ok + "</div>";
+                cliStep++;
+                if (cliStep < cliSteps.length) {
+                    output.innerHTML += "\n<div class='hint'>" + cliSteps[cliStep].hint + "</div>";
+                    document.getElementById("taskProgress").textContent = "שלב " + (cliStep + 1) + " מתוך " + cliSteps.length;
+                } else {
+                    document.getElementById("taskProgress").textContent = "הושלם בהצלחה! ✅";
+                }
+            } else {
+                output.innerHTML += "\n" + prompt + " " + val + "\n<div class='bad'>✘ פקודה לא נכונה. עיין בהנחיות ונסה שנית.</div>";
+            }
+            input.value = "";
+            output.scrollTop = output.scrollHeight;
+        }
+
+        /* 10 Quiz Questions without parentheses */
+        const quizData = [
+            {
+                q: "מה תפקידו המרכזי של מתג Switch ברשת מקומית LAN?",
+                opts: [
+                    "לחבר בין רשתות שונות בעולם באמצעות כתובות IP",
+                    "לחבר בין מכשירי קצה באותה רשת מקומית ולהעביר פרימים לפי כתובות MAC",
+                    "לחלק כתובות IP אוטומטית לכל מחשב שנפתח",
+                    "להמיר את שם האתר כגון google.com לכתובת IP"
+                ],
+                correct: 1,
+                explain: "סוויטש פועל בשכבה 2 Data Link ומעביר מידע בין מחשבים באותה רשת לפי כתובות ה-MAC הפיזיות שלהם."
+            },
+            {
+                q: "איזה פרוטוקול אחראי על חלוקת כתובות IP אוטומטית למחשבים ברשת?",
+                opts: ["DNS", "DHCP", "HTTP", "ICMP"],
+                correct: 1,
+                explain: "פרוטוקול DHCP Dynamic Host Configuration Protocol מעניק הגדרות רשת באופן אוטומטי."
+            },
+            {
+                q: "באיזו שכבה במודל OSI פועלת כתובת IP?",
+                opts: ["שכבה 1 - Physical", "שכבה 2 - Data Link", "שכבה 3 - Network", "שכבה 4 - Transport"],
+                correct: 2,
+                explain: "כתובת IP היא כתובת לוגית השייכת לשכבת הרשת Layer 3."
+            },
+            {
+                q: "מה מייצגת הנורית הירוקה בפורט ב-Packet Tracer לאחר חיבור הכבל?",
+                opts: [
+                    "החבילה הגיעה ליעדה בהצלחה",
+                    "יש חיבור פיזי תקין בשכבה 1 Link Up",
+                    "המחשב קיבל כתובת IP משרת DHCP",
+                    "השרת סיים לבצע את בדיקת ה-Ping"
+                ],
+                correct: 1,
+                explain: "נורית ירוקה מעידה על קישור פיזי Physical Link תקין ופעיל בין הפורטים."
+            },
+            {
+                q: "מה מטרת השימוש בפקודת ping 192.168.1.1 ב-Command Prompt?",
+                opts: [
+                    "לשנות את כתובת ה-IP של המחשב",
+                    "לבדוק האם קיימת תקשורת בשכבה 3 והאם היעד משיב לחבילות ICMP",
+                    "להפעיל את שירות ה-DHCP בשרת",
+                    "למחוק את זיכרון המטמון של הסוויטש"
+                ],
+                correct: 1,
+                explain: "פקודת Ping שולחת חבילות ICMP Echo Request כדי לבדוק זמינות ותגובתיות של רכיב יעד ברשת."
+            },
+            {
+                q: "מה קורה כאשר מחשב מוגדר ב-DHCP אך שרת ה-DHCP ברשת כבוי או לא נגיש?",
+                opts: [
+                    "המחשב ייכבה באופן אוטומטי",
+                    "המחשב ייצר לעצמו כתובת מסוג APIPA לדוגמה 169.254.1.1",
+                    "המחשב יתחבר מיד לאינטרנט ללא כתובת",
+                    "המחשב יקבל את הכתובת 127.0.0.1"
+                ],
+                correct: 1,
+                explain: "בהיעדר תגובה משרת DHCP, מערכת ההפעלה מקצה כתובת עצמית בטווח APIPA."
+            },
+            {
+                q: "באיזו שכבה במודל OSI פועלת כתובת ה-MAC?",
+                opts: ["שכבה 1 - Physical", "שכבה 2 - Data Link", "שכבה 3 - Network", "שכבה 7 - Application"],
+                correct: 1,
+                explain: "כתובת MAC היא הכתובת הפיזית הצרובה בכרטיס הרשת ושייכת לשכבת ערוץ הנתונים Layer 2."
+            },
+            {
+                q: "מהו היתרון המרכזי של מצב Simulation ב-Packet Tracer?",
+                opts: [
+                    "הוא מאיץ את מהירות האינטרנט של המחשב",
+                    "הוא מאפשר לראות את מעבר החבילות PDUs שלב אחר שלב ולבחון את השכבות השונות",
+                    "הוא מגדיר את הראוטרים באופן אוטומטי ללא פקודות",
+                    "הוא מחבר את הסימולטור לציוד אמיתי במעבדה"
+                ],
+                correct: 1,
+                explain: "מצב Simulation מאפשר להקפיא את הזמן ולחקור את מבנה החבילות בכל שכבה ושכבה לאורך המסלול."
+            },
+            {
+                q: "באיזה סוג כבל נעשה שימוש בסימולטור לחיבור מחשב PC לסוויטש Switch?",
+                opts: ["Copper Cross-Over", "Copper Straight-Through", "Console Cable", "Fiber Optic"],
+                correct: 1,
+                explain: "לחיבור מכשירים ממדרג שונה משתמשים בכבל ישר Straight-Through."
+            },
+            {
+                q: "איזה רכיב נדרש כדי לחבר בין שתי רשתות מקומיות LAN שונות בעלות טווח IP שונה?",
+                opts: ["Switch בלבד", "Hub", "Router נתב", "כבל ישר נוסף"],
+                correct: 2,
+                explain: "נתב Router פועל בשכבה 3 ומיועד להעביר חבילות מידע בין רשתות IP נפרדות ושונות."
+            }
+        ];
+
+        let userAnswers = {};
+
+        function renderQuiz() {
+            const container = document.getElementById("quizContainer");
+            if (!container) return;
+            container.innerHTML = "";
+            quizData.forEach((item, qi) => {
+                const qDiv = document.createElement("div");
+                qDiv.className = "quiz-q";
+                qDiv.innerHTML = `<div class="quiz-q-num">שאלה ${qi + 1} מתוך ${quizData.length}</div><div class="quiz-q-text">${item.q}</div>`;
+                const optsDiv = document.createElement("div");
+                optsDiv.className = "quiz-opts";
+                item.opts.forEach((opt, oi) => {
+                    const b = document.createElement("div");
+                    b.className = "quiz-opt";
+                    b.textContent = opt;
+                    b.onclick = () => answerQuiz(qi, oi);
+                    optsDiv.appendChild(b);
+                });
+                qDiv.appendChild(optsDiv);
+                const explainDiv = document.createElement("div");
+                explainDiv.className = "quiz-explain";
+                explainDiv.id = "explain-" + qi;
+                explainDiv.textContent = item.explain;
+                qDiv.appendChild(explainDiv);
+                container.appendChild(qDiv);
+            });
+        }
+
+        function answerQuiz(qi, oi) {
+            userAnswers[qi] = oi;
+            const opts = document.querySelectorAll(".quiz-q")[qi].querySelectorAll(".quiz-opt");
+            opts.forEach((el, i) => {
+                if (i === oi) {
+                    el.style.borderColor = "var(--red)";
+                    el.style.background = "var(--c-sky-bg)";
+                } else {
+                    el.style.borderColor = "var(--line)";
+                    el.style.background = "var(--paper)";
+                }
+            });
+        }
+
+        function checkScore() {
+            let correctCount = 0;
+            quizData.forEach((item, qi) => {
+                const selected = userAnswers[qi];
+                const opts = document.querySelectorAll(".quiz-q")[qi].querySelectorAll(".quiz-opt");
+                opts.forEach((el, i) => {
+                    el.classList.add("disabled");
+                    if (i === item.correct) el.classList.add("correct");
+                    if (selected === i && selected !== item.correct) el.classList.add("wrong");
+                });
+                document.getElementById("explain-" + qi).classList.add("show");
+                if (selected === item.correct) correctCount++;
+            });
+            
+            const score = Math.round((correctCount / quizData.length) * 100);
+            const box = document.getElementById("completionBox");
+            document.getElementById("scoreTitle").textContent = score >= 70 ? `🎉 כל הכבוד! הציון שלך: ${score}` : `שפר ונסה שוב! הציון שלך: ${score}`;
+            document.getElementById("scoreText").textContent = `ענית נכון על ${correctCount} מתוך ${quizData.length} שאלות.`;
+            box.style.display = "block";
+        }
+
+        function unlockTeacherAnswers() {
+            const pwd = prompt("הזן סיסמת מורה לצפייה בתשובות הנכונות:");
+            if (pwd && pwd.trim().toLowerCase() === "sahar") {
+                alert("אימות מורה הצליח! כל התשובות וההסברים מוצגים כעת.");
+                quizData.forEach((item, qi) => {
+                    userAnswers[qi] = item.correct;
+                    const opts = document.querySelectorAll(".quiz-q")[qi].querySelectorAll(".quiz-opt");
+                    opts.forEach((el, i) => {
+                        el.classList.add("disabled");
+                        if (i === item.correct) el.classList.add("correct");
+                    });
+                    document.getElementById("explain-" + qi).classList.add("show");
+                });
+            } else if (pwd !== null) {
+                alert("סיסמה שגויה! הגישה נדחתה.");
+            }
+        }
+
+        window.onload = function() {
+            try { applyDark(localStorage.getItem('pt_lesson_dark') === '1'); } catch (e) {}
+            renderQuiz();
+            if (typeof lucide !== 'undefined') { lucide.createIcons(); }
+        };
+    </script>
 </body>
 </html>
