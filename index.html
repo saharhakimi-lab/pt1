@@ -152,8 +152,6 @@
             background: var(--paper); border: 2px solid var(--line); color: var(--ink);
             font-size: 0.85rem; font-weight: 700; padding: 4px 16px; border-radius: 12px; line-height: 1.7;
         }
-        .badge-success { border-color: var(--ok-edge); color: var(--ok-edge); }
-        body.dark .badge-success { color: #6ee7b7; border-color: #6ee7b7; }
 
         .mode-btn {
             min-height: 48px; padding: 0 18px; border-radius: 12px;
@@ -195,7 +193,6 @@
             background: var(--c-sky-bg); margin-bottom: 16px;
         }
         .section-box h4 { font-size: 1.05rem; color: var(--c-sky); margin-bottom: 6px; }
-        .section-box p { font-size: 0.95rem; color: var(--ink); line-height: 1.7; }
 
         .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
 
@@ -208,12 +205,140 @@
         .task-desc { font-size: 0.85rem; color: var(--ink); margin-bottom: 12px; }
         .task-step-list { padding-right: 20px; font-size: 0.85rem; line-height: 1.8; color: var(--soft); }
 
+        /* ---------- חלונית תמונות מעוצבת וניתנת להגדלה ---------- */
+        .img-card-container {
+            background: var(--paper);
+            border: 2px solid var(--c-sky);
+            border-radius: 16px;
+            padding: 16px;
+            margin: 16px 0;
+            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.1);
+        }
+        .img-card-title {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: var(--c-sky);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .img-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            margin-bottom: 8px;
+            background: #f0f0f0;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .img-wrapper:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .img-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+        .img-hover-hint {
+            position: absolute;
+            inset: 0;
+            background: rgba(14, 116, 144, 0.4);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+        .img-wrapper:hover .img-hover-hint {
+            opacity: 1;
+        }
+        .img-caption {
+            font-size: 0.75rem;
+            color: var(--muted);
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* ---------- MODAL לתמונות על מסך מלא ---------- */
+        .image-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(6px);
+            z-index: 2000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.2s ease;
+        }
+        .image-modal-overlay.active {
+            display: flex;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .image-modal-content {
+            position: relative;
+            max-width: 95vw;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .image-modal-img {
+            max-width: 100%;
+            max-height: 75vh;
+            border-radius: 14px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            border: 2px solid rgba(255,255,255,0.2);
+            object-fit: contain;
+        }
+        .image-modal-caption {
+            color: #ffffff;
+            margin-top: 14px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-align: center;
+            background: rgba(0,0,0,0.6);
+            padding: 6px 16px;
+            border-radius: 20px;
+        }
+        .image-modal-close {
+            position: absolute;
+            top: -45px;
+            left: 0;
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+        }
+        .image-modal-close:hover {
+            background: var(--red);
+        }
+
         .accordion { border: 2px solid var(--line); border-radius: 16px; overflow: hidden; margin-bottom: 14px; background: var(--paper); }
         .acc-head { padding: 16px 20px; background: var(--paper); cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 800; font-size: 0.95rem; }
         .acc-head:hover { background: var(--bg); }
         .acc-body { max-height: 0; overflow: hidden; transition: max-height .3s ease; background: var(--paper); }
         .acc-body-inner { padding: 0 20px 20px; font-size: 0.85rem; }
-        .accordion.open .acc-body { max-height: 800px; }
+        .accordion.open .acc-body { max-height: 1200px; }
         .acc-arrow { transition: transform .3s; color: var(--muted); font-size: 1rem; }
         .accordion.open .acc-arrow { transform: rotate(180deg); }
 
@@ -313,7 +438,6 @@
             background: var(--bg); border: 1.5px solid var(--line); padding: 1px 6px;
             border-radius: 6px; color: var(--ink); display: inline-block;
         }
-        .num { direction: ltr; unicode-bidi: isolate; font-family: var(--font-code); font-weight: 700; font-size: 0.94em; color: var(--red-text); }
         .aside {
             display: inline; padding: 1px 10px; margin: 0 3px; border-radius: 999px;
             background: var(--aside-bg); border: 1px solid var(--aside-edge); color: var(--aside-ink);
@@ -424,6 +548,86 @@
                         <li>לחצו על כפתור ה-<b>Play</b> או Forward ותראו את המעטפה נעה מהמחשב לסוויטש ובחזרה!</li>
                     </ul>
                 </div>
+
+                <!-- 🌟 משימה 6: חקירת מנגנון ARP בין רשתות 🌟 -->
+                <div class="task-box" style="border: 2px solid var(--c-sky);">
+                    <div class="task-title" style="color: var(--c-sky);">משימה 6 מתקדמת: תעלומת ה-ARP בין רשתות (Cross-Subnet ARP) 🔍</div>
+                    <div class="task-desc">במשימה זו נחקור מצב שבו מתבצע פינג בין שתי רשתות שונות דרך ראוטר, ונלמד כיצד פועל זיכרון ה-ARP המקומי בצד המקבל.</div>
+
+                    <!-- חלונית תמונות מעוצבת ואינטראקטיבית להגדלה -->
+                    <div class="img-card-container">
+                        <div class="img-card-title">
+                            <i data-lucide="image" style="width: 18px; height: 18px;"></i>
+                            צילומי מסך מתרחיש הסימולציה (לחצו על תמונה להגדלה במסך מלא 🔍)
+                        </div>
+                        <div class="grid-2">
+                            <div>
+                                <div class="img-wrapper" onclick="openImageModal('https://drive.google.com/thumbnail?id=11j-wu89Wo-65vXFDOuvOAfMjiLUcHI4A&sz=w1600', 'מצב 1: פינג מ-PC0 ל-PC1 - בצד המקבל לא מופיעה מעטפת ARP כיוון שה-Gateway כבר מוכר בטבלה')">
+                                    <img src="https://drive.google.com/thumbnail?id=11j-wu89Wo-65vXFDOuvOAfMjiLUcHI4A&sz=w1000" alt="לפני איפוס ARP">
+                                    <div class="img-hover-hint"><i data-lucide="zoom-in" style="width: 18px; height: 18px;"></i> לחץ להגדלה</div>
+                                </div>
+                                <div class="img-caption">מצב 1 (לפני): פינג מ-PC0 ל-PC1 - בצד המקבל לא מופיעה מעטפת ARP (ה-Gateway כבר מוכר)</div>
+                            </div>
+                            <div>
+                                <div class="img-wrapper" onclick="openImageModal('https://drive.google.com/thumbnail?id=1cy8J8u3t-Ux_wQ_sBJH4Sed1-ie8N2Vu&sz=w1600', 'מצב 2: לאחר ניקוי טבלת ARP עם הפקודה arp -d - המחשב המקבל יוצר מעטפת ARP חיוורת לחיפוש ה-Gateway!')">
+                                    <img src="https://drive.google.com/thumbnail?id=1cy8J8u3t-Ux_wQ_sBJH4Sed1-ie8N2Vu&sz=w1000" alt="לאחר איפוס ARP">
+                                    <div class="img-hover-hint"><i data-lucide="zoom-in" style="width: 18px; height: 18px;"></i> לחץ להגדלה</div>
+                                </div>
+                                <div class="img-caption">מצב 2 (אחרי איפוס): לאחר ניקוי טבלת ARP - המחשב המקבל יוצר בקשת ARP ל-Gateway!</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="task-step-list">
+                        <li><b>שלב 1:</b> בצעו Ping במצב Simulation מהמחשב השולח ברשת הראשונה <span class="eng-tag">192.168.10.x</span> למחשב המקבל ברשת השנייה <span class="eng-tag">172.16.0.x</span>.</li>
+                        <li><b>שלב 2:</b> שימו לב כי ברשת השולחת מופיעה מעטפת ARP (צבע ירוק/חיוור) לחקירת ה-Gateway, אך ברשת המקבלת מופיעה רק מעטפת ICMP (סגולה).</li>
+                        <li><b>שלב 3 (איפוס הזיכרון):</b> היכנסו ל-<b>Command Prompt</b> במחשב המקבל והריצו את פקודת איפוס ה-ARP: <span class="eng-tag">arp -d</span>.</li>
+                        <li><b>שלב 4 (ניסוי חוזר):</b> שלחו שוב פינג במצב Simulation! כעת תראו שגם במחשב המקבל נוצרת מעטפת ARP חדשה בחיפוש אחר כתובת ה-MAC של ה-Default Gateway שלו (<span class="eng-tag">172.16.0.1</span>).</li>
+                    </ul>
+
+                    <!-- שאלות חשיבה ופתרון אינטראקטיבי -->
+                    <div style="margin-top: 20px;">
+                        <h4 style="font-size: 0.95rem; color: var(--ink); margin-bottom: 10px;">❓ שאלות למחשבה ולדיון בכיתה:</h4>
+                        
+                        <div id="acc-arp1" class="accordion">
+                            <div class="acc-head" onclick="toggleAcc('acc-arp1')">
+                                <span>שאלה 1: האם המחשב המקבל לומד את ה-Default Gateway ישירות מתוך הודעת הפינג שקיבל?</span>
+                                <span class="acc-arrow">▾</span>
+                            </div>
+                            <div class="acc-body">
+                                <div class="acc-body-inner">
+                                    <p><b>תשובה:</b> <b>לא!</b> המחשב המקבל אינו לומד את ה-Gateway מחבילת ה-ICMP. הודעת ה-ICMP מכילה את כתובת ה-IP של המקור בלבד. המחשב המקבל יודע שעליו לפנות ל-Gateway המקומי שלו כיוון שהוא מזהה שכתובת היעד להחזרת התשובה נמצאת ברשת מרוחקת (Subnet שונה).</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="acc-arp2" class="accordion">
+                            <div class="acc-head" onclick="toggleAcc('acc-arp2')">
+                                <span>שאלה 2: למה בצילום המסך הראשון לא ראינו מעטפת ARP יוצאת מהמחשב המקבל?</span>
+                                <span class="acc-arrow">▾</span>
+                            </div>
+                            <div class="acc-body">
+                                <div class="acc-body-inner">
+                                    <p><b>תשובה:</b> מפני שכתובת ה-MAC של ה-Gateway כבר הייתה שמורה בטבלת ה-ARP המקומית (<span class="eng-tag">ARP Cache</span>) של המחשב המקבל (כתוצאה מתקשורת קודמת או קבלת IP מ-DHCP).</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="acc-arp3" class="accordion">
+                            <div class="acc-head" onclick="toggleAcc('acc-arp3')">
+                                <span>שאלה 3: מה קרה לאחר שהרצנו את הפקודה arp -d במחשב המקבל?</span>
+                                <span class="acc-arrow">▾</span>
+                            </div>
+                            <div class="acc-body">
+                                <div class="acc-body-inner">
+                                    <p><b>תשובה:</b> הפקודה מחקה את זיכרון ה-ARP. כעת, כשהמחשב המקבל נדרש להחזיר את תשובת ה-Ping ל-Gateway, לא הייתה לו את כתובת ה-MAC שלו – ולכן הוא נאלץ לייצר בקשת ARP חדשה (כפי שרואים בצילום המסך השני!).</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -436,7 +640,7 @@
                 <div id="acc1" class="accordion">
                     <div class="acc-head" onclick="toggleAcc('acc1')"><span>שכבה 1: השכבה הפיזית <span class="eng-tag">Physical Layer</span></span><span class="acc-arrow">▾</span></div>
                     <div class="acc-body"><div class="acc-body-inner">
-                        <p><b>מה קורה ב-Packet Tracer?</b> חיבור הכבל <span class="eng-tag">Ethernet Cable</span>, הפורט الפיזי <span class="eng-tag">FastEthernet0</span> והמרת המידע לאותות חשמליים או אופטיים, ביטים של 0 ו-1.</p>
+                        <p><b>מה קורה ב-Packet Tracer?</b> חיבור הכבל <span class="eng-tag">Ethernet Cable</span>, הפורט הפיזי <span class="eng-tag">FastEthernet0</span> והמרת המידע לאותות חשמליים או אופטיים, ביטים של 0 ו-1.</p>
                         <p><b>בדיקת תקינות:</b> הנורית הירוקה בפורט מעידה על סיגנל פיזי תקין <span class="eng-tag">Link Up</span>.</p>
                     </div></div>
                 </div>
@@ -520,6 +724,15 @@
 
     </main>
 
+    <!-- Modal לתצוגת תמונה על מסך מלא -->
+    <div id="imageModal" class="image-modal-overlay" onclick="closeImageModal(event)">
+        <div class="image-modal-content" onclick="event.stopPropagation()">
+            <button class="image-modal-close" onclick="closeImageModal()">✕ סגור (Esc)</button>
+            <img id="imageModalSrc" src="" alt="צילום מסך מוגדל" class="image-modal-img">
+            <div id="imageModalCaption" class="image-modal-caption"></div>
+        </div>
+    </div>
+
     <!-- Modal for Additional Tasks Doc -->
     <div id="docModal" class="modal-overlay">
         <div class="modal-card">
@@ -602,6 +815,27 @@
             const card = document.getElementById('bot-card');
             card.style.display = card.style.display === 'none' ? 'flex' : 'none';
         }
+
+        /* 🖼️ Image Zoom Modal Logic */
+        function openImageModal(src, caption) {
+            const modal = document.getElementById('imageModal');
+            document.getElementById('imageModalSrc').src = src;
+            document.getElementById('imageModalCaption').textContent = caption;
+            modal.classList.add('active');
+        }
+
+        function closeImageModal(e) {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('active');
+        }
+
+        // Close image modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeImageModal();
+                closeDocModal();
+            }
+        });
 
         /* Modal Google Drive Document */
         function openDocModal() {
