@@ -268,7 +268,7 @@
             font-weight: 600;
         }
 
-        /* ---------- MODAL לתמונות על מסך מלא ---------- */
+        /* ---------- MODAL לתמונות ולמבדקים ---------- */
         .image-modal-overlay {
             position: fixed;
             inset: 0;
@@ -387,7 +387,7 @@
         .modal-overlay.active { display: flex; }
         .modal-card {
             background: var(--paper); border: 2px solid var(--line); border-radius: 20px;
-            width: 100%; max-width: 900px; height: 85vh; display: flex; flex-direction: column; overflow: hidden;
+            width: 100%; max-width: 950px; height: 90vh; display: flex; flex-direction: column; overflow: hidden;
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
         .modal-header { padding: 14px 20px; border-bottom: 2px solid var(--line); display: flex; justify-content: space-between; align-items: center; background: var(--bg); }
@@ -628,6 +628,75 @@
                     </div>
                 </div>
 
+                <!-- 🏷️ משימה 7: מעבדת VLANs ותקשורת בין-ווילאנים (Inter-VLAN Routing) 🏷️ -->
+                <div class="task-box" style="border: 2px solid var(--c-violet); background: var(--c-violet-bg);">
+                    <div class="task-title" style="color: var(--c-violet);">משימה 7: חלוקת הרשת ל-VLANs וניתוב Router-on-a-Stick 🏷️</div>
+                    <div class="task-desc">במשימה זו נלמד להפריד רשת פיזית אחת לשתי רשתות לוגיות נפרדות (VLAN 10 עבור Sales ו-VLAN 20 עבור Exec) ולחבר ביניהן באמצעות תת-ממשקים בנתב.</div>
+
+                    <!-- חלונית בולטת עם כפתור לגיליון הכתובות וכפתור למבדק -->
+                    <div style="background: var(--paper); border: 2px solid var(--c-violet); border-radius: 14px; padding: 18px; margin: 16px 0; text-align: center; box-shadow: 0 4px 15px rgba(109, 40, 217, 0.15);">
+                        <h4 style="font-size: 1rem; color: var(--c-violet); margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            <i data-lucide="table" style="width: 20px; height: 20px;"></i>
+                            טבלת כתובות והגדרות מעבדת VLANs
+                        </h4>
+                        <p style="font-size: 0.85rem; color: var(--soft); margin-bottom: 14px;">לצפייה בטבלת ה-IP, ה-Subnet Mask, ה-VLANs והפורטים המלאים עבור כל רכיב במעבדה זו:</p>
+                        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                            <a href="https://docs.google.com/spreadsheets/d/1NKGyNaF9g8lun96b-XHl0e1q4BAhFD54ow91dvJgDd8/edit?usp=sharing" target="_blank" class="action-btn" style="background: var(--c-violet); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; font-size: 0.85rem;">
+                                <span>פירוט הכתובות והגדרות המעבדה 📊</span>
+                                <i data-lucide="external-link" style="width: 16px; height: 16px;"></i>
+                            </a>
+                            <button onclick="openVlanQuizModal()" class="action-btn" style="background: var(--red); display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; font-size: 0.85rem;">
+                                <span>פתח מבדק 20 שאלות למעבדת VLANs 📝</span>
+                                <i data-lucide="help-circle" style="width: 16px; height: 16px;"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <ul class="task-step-list">
+                        <li><b>שלב 1 (הקמת הטופולוגיה):</b> הניחו שני מחשבי <span class="eng-tag">Sales</span> (חברו ל-Fa0/1 ו-Fa0/2 במתג), מחשב <span class="eng-tag">Exec</span> (חברו ל-Fa0/10 במתג), ונתב <span class="eng-tag">2911</span> (חברו מפורט Gi0/0 בנתב ל-Gi0/1 במתג).</li>
+                        <li><b>שלב 2 (הגדרת VLANs במתג):</b> יצירת VLAN 10 בשם <span class="eng-tag">Sales</span> ו-VLAN 20 בשם <span class="eng-tag">Exec</span>, שיוך הפורטים למצב <span class="eng-tag">Access</span>, והגדרת הפורט אל הנתב (<span class="eng-tag">Gi0/1</span>) במצב <span class="eng-tag">Trunk</span>.</li>
+                        <li><b>שלב 3 (הגדרת Router-on-a-Stick):</b> כניסה ל-CLI של הנתב, הפעלת הממשק <span class="eng-tag">Gi0/0</span> (`no shutdown`), ויצירת תת-ממשקים `Gi0/0.10` ו-`Gi0/0.20` עם Encapsulation dot1Q והגדרת ה-Gateway המתאים לכל VLAN.</li>
+                        <li><b>שלב 4 (אימות תקשורת):</b> הגדירו כתובות IP במחשבים לפי גיליון הכתובות ובצעו <span class="eng-tag">Ping</span> בין מחשבים באותו VLAN, ובהמשך בין מחשבים ב-VLANs שונים דרך הנתב!</li>
+                    </ul>
+                </div>
+
+                <!-- 🟢 משימה 8: מעבדה בסיסית ללא VLANs (Single Subnet) 🟢 -->
+                <div class="task-box" style="border: 2px solid var(--c-green); background: var(--c-green-bg);">
+                    <div class="task-title" style="color: var(--c-green);">משימה 8: הקמת רשת משרדית בסיסית ללא VLANs (Single Subnet) 🌐</div>
+                    <div class="task-desc">משימה בסיסית המיועדת לתרגול יסודות הרשת המקומית (LAN) ברמות 1–3: חיבור כבלים, הגדרת כתובות IP באותה רשת, הפעלת ממשק נתב ובדיקת תקשורת.</div>
+
+                    <!-- חלונית בולטת עם כפתור למבדק הבסיסי -->
+                    <div style="background: var(--paper); border: 2px solid var(--c-green); border-radius: 14px; padding: 18px; margin: 16px 0; text-align: center; box-shadow: 0 4px 15px rgba(4, 120, 87, 0.15);">
+                        <h4 style="font-size: 1rem; color: var(--c-green); margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            <i data-lucide="check-circle" style="width: 20px; height: 20px;"></i>
+                            מבדק מסכם לרשת בסיסית (ללא VLANs)
+                        </h4>
+                        <p style="font-size: 0.85rem; color: var(--soft); margin-bottom: 14px;">בחן את הבנתך במושגי היסוד: כתובות IP, MAC, Subnet Mask, Default Gateway ופרוטוקולי ARP/ICMP:</p>
+                        <button onclick="openBasicQuizModal()" class="action-btn" style="background: var(--c-green); display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; font-size: 0.85rem;">
+                            <span>פתח מבדק 20 שאלות למעבדה בסיסית 📝</span>
+                            <i data-lucide="help-circle" style="width: 16px; height: 16px;"></i>
+                        </button>
+                    </div>
+
+                    <ul class="task-step-list">
+                        <li><b>שלב 1 (הקמת ציוד וחיווט):</b> הניחו נתב (2911), מתג (2960) ו-2 מחשבים. חברו בכבלי נחושת ישרים (<span class="eng-tag">Straight-Through</span>): PC-1 ל-Fa0/1, PC-2 ל-Fa0/2, והנתב (Gi0/0) ל-Gi0/1 במתג.</li>
+                        <li><b>שלב 2 (הגדרת כתובות IP):</b> 
+                            <ul>
+                                <li>PC-1: IP: <span class="eng-tag">192.168.1.10</span> | Mask: <span class="eng-tag">255.255.255.0</span> | Gateway: <span class="eng-tag">192.168.1.1</span></li>
+                                <li>PC-2: IP: <span class="eng-tag">192.168.1.20</span> | Mask: <span class="eng-tag">255.255.255.0</span> | Gateway: <span class="eng-tag">192.168.1.1</span></li>
+                            </ul>
+                        </li>
+                        <li><b>שלב 3 (הגדרת הנתב ב-CLI):</b> היכנסו ל-CLI של Router-Main והגדירו את הממשק:
+                            <pre style="background: #090d16; color: #cbd5e1; padding: 10px; border-radius: 8px; font-family: var(--font-code); margin-top: 6px; font-size: 0.8rem; direction: ltr; text-align: left;">enable
+configure terminal
+interface gigabitEthernet 0/0
+ip address 192.168.1.1 255.255.255.0
+no shutdown</pre>
+                        </li>
+                        <li><b>שלב 4 (בדיקת תקינות):</b> לבצע Ping מ-PC-1 ל-PC-2, ובנוסף Ping מ-PC-1 ל-Default Gateway בכתובת <span class="eng-tag">192.168.1.1</span>.</li>
+                    </ul>
+                </div>
+
             </div>
         </section>
 
@@ -706,7 +775,7 @@
             <div class="card">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                     <h2 class="card-title" style="margin: 0;">מבדק אמריקאי מסכם 📝</h2>
-                    <button class="action-btn" onclick="unlockTeacherAnswers()" style="padding: 6px 12px; font-size: 0.75rem;">🔑 כניסת מורה</button>
+                    <button class="action-btn" onclick="unlockTeacherAnswers('main')" style="padding: 6px 12px; font-size: 0.75rem;">🔑 כניסת מורה</button>
                 </div>
 
                 <div id="quizContainer"></div>
@@ -723,6 +792,48 @@
         </section>
 
     </main>
+
+    <!-- Modal עבור מבדק 20 שאלות למעבדת VLANs -->
+    <div id="vlanQuizModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <span style="font-weight: 800; font-size: 0.95rem; color: var(--c-violet);">📝 מבדק מסכם: מעבדת VLANs וניתוב (20 שאלות)</span>
+                <div style="display: flex; gap: 8px;">
+                    <button class="action-btn" onclick="unlockTeacherAnswers('vlan')" style="padding: 6px 12px; font-size: 0.75rem;">🔑 כניסת מורה</button>
+                    <button onclick="closeVlanQuizModal()" style="background: var(--line); border: none; padding: 6px 12px; border-radius: 8px; font-weight: 800; font-size: 0.8rem; cursor: pointer;">✕</button>
+                </div>
+            </div>
+            <div style="padding: 20px; overflow-y: auto; flex-grow: 1;">
+                <div id="vlanQuizContainer"></div>
+                <button class="action-btn" onclick="checkVlanScore()" style="width: 100%; margin-top: 16px; font-size: 1rem; background: var(--c-violet);">בדוק ציון מבדק VLANs 📊</button>
+                <div id="vlanCompletionBox" style="display: none; margin-top: 20px; padding: 20px; text-align: center; background: var(--ok-bg); border: 2px solid var(--ok-edge); border-radius: 16px; color: var(--ok-edge);">
+                    <h2 id="vlanScoreTitle" style="font-size: 1.4rem; margin-bottom: 6px;">🎉 כל הכבוד!</h2>
+                    <p id="vlanScoreText" style="font-size: 0.95rem; font-weight: 700;">סיימת את המבדק בהצלחה.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal עבור מבדק 20 שאלות למעבדה בסיסית -->
+    <div id="basicQuizModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <span style="font-weight: 800; font-size: 0.95rem; color: var(--c-green);">📝 מבדק מסכם: מעבדה בסיסית (20 שאלות)</span>
+                <div style="display: flex; gap: 8px;">
+                    <button class="action-btn" onclick="unlockTeacherAnswers('basic')" style="padding: 6px 12px; font-size: 0.75rem;">🔑 כניסת מורה</button>
+                    <button onclick="closeBasicQuizModal()" style="background: var(--line); border: none; padding: 6px 12px; border-radius: 8px; font-weight: 800; font-size: 0.8rem; cursor: pointer;">✕</button>
+                </div>
+            </div>
+            <div style="padding: 20px; overflow-y: auto; flex-grow: 1;">
+                <div id="basicQuizContainer"></div>
+                <button class="action-btn" onclick="checkBasicScore()" style="width: 100%; margin-top: 16px; font-size: 1rem; background: var(--c-green);">בדוק ציון מבדק בסיסי 📊</button>
+                <div id="basicCompletionBox" style="display: none; margin-top: 20px; padding: 20px; text-align: center; background: var(--ok-bg); border: 2px solid var(--ok-edge); border-radius: 16px; color: var(--ok-edge);">
+                    <h2 id="basicScoreTitle" style="font-size: 1.4rem; margin-bottom: 6px;">🎉 כל הכבוד!</h2>
+                    <p id="basicScoreText" style="font-size: 0.95rem; font-weight: 700;">סיימת את המבדק בהצלחה.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal לתצוגת תמונה על מסך מלא -->
     <div id="imageModal" class="image-modal-overlay" onclick="closeImageModal(event)">
@@ -834,6 +945,8 @@
             if (e.key === 'Escape') {
                 closeImageModal();
                 closeDocModal();
+                closeVlanQuizModal();
+                closeBasicQuizModal();
             }
         });
 
@@ -851,6 +964,12 @@
             modal.classList.remove('active');
             iframe.src = "";
         }
+
+        /* Modal Quizzes Logic */
+        function openVlanQuizModal() { document.getElementById('vlanQuizModal').classList.add('active'); }
+        function closeVlanQuizModal() { document.getElementById('vlanQuizModal').classList.remove('active'); }
+        function openBasicQuizModal() { document.getElementById('basicQuizModal').classList.add('active'); }
+        function closeBasicQuizModal() { document.getElementById('basicQuizModal').classList.remove('active'); }
 
         /* CLI Simulation */
         const cliSteps = [
@@ -892,171 +1011,196 @@
             output.scrollTop = output.scrollHeight;
         }
 
-        /* 10 Quiz Questions without parentheses */
+        /* DATA: 10 Quiz Questions (Main Tab) */
         const quizData = [
             {
                 q: "מה תפקידו המרכזי של מתג Switch ברשת מקומית LAN?",
-                opts: [
-                    "לחבר בין רשתות שונות בעולם באמצעות כתובות IP",
-                    "לחבר בין מכשירי קצה באותה רשת מקומית ולהעביר פרימים לפי כתובות MAC",
-                    "לחלק כתובות IP אוטומטית לכל מחשב שנפתח",
-                    "להמיר את שם האתר כגון google.com לכתובת IP"
-                ],
-                correct: 1,
-                explain: "סוויטש פועל בשכבה 2 Data Link ומעביר מידע בין מחשבים באותה רשת לפי כתובות ה-MAC הפיזיות שלהם."
+                opts: ["לחבר בין רשתות שונות בעולם באמצעות כתובות IP", "לחבר בין מכשירי קצה באותה רשת מקומית ולהעביר פרימים לפי כתובות MAC", "לחלק כתובות IP אוטומטית לכל מחשב שנפתח", "להמיר את שם האתר כגון google.com לכתובת IP"],
+                correct: 1, explain: "סוויטש פועל בשכבה 2 Data Link ומעביר מידע בין מחשבים באותה רשת לפי כתובות ה-MAC הפיזיות שלהם."
             },
             {
                 q: "איזה פרוטוקול אחראי על חלוקת כתובות IP אוטומטית למחשבים ברשת?",
                 opts: ["DNS", "DHCP", "HTTP", "ICMP"],
-                correct: 1,
-                explain: "פרוטוקול DHCP Dynamic Host Configuration Protocol מעניק הגדרות רשת באופן אוטומטי."
+                correct: 1, explain: "פרוטוקול DHCP Dynamic Host Configuration Protocol מעניק הגדרות רשת באופן אוטומטי."
             },
             {
                 q: "באיזו שכבה במודל OSI פועלת כתובת IP?",
                 opts: ["שכבה 1 - Physical", "שכבה 2 - Data Link", "שכבה 3 - Network", "שכבה 4 - Transport"],
-                correct: 2,
-                explain: "כתובת IP היא כתובת לוגית השייכת לשכבת הרשת Layer 3."
+                correct: 2, explain: "כתובת IP היא כתובת לוגית השייכת לשכבת הרשת Layer 3."
             },
             {
                 q: "מה מייצגת הנורית הירוקה בפורט ב-Packet Tracer לאחר חיבור הכבל?",
-                opts: [
-                    "החבילה הגיעה ליעדה בהצלחה",
-                    "יש חיבור פיזי תקין בשכבה 1 Link Up",
-                    "המחשב קיבל כתובת IP משרת DHCP",
-                    "השרת סיים לבצע את בדיקת ה-Ping"
-                ],
-                correct: 1,
-                explain: "נורית ירוקה מעידה על קישור פיזי Physical Link תקין ופעיל בין הפורטים."
+                opts: ["החבילה הגיעה ליעדה בהצלחה", "יש חיבור פיזי תקין בשכבה 1 Link Up", "המחשב קיבל כתובת IP משרת DHCP", "השרת סיים לבצע את בדיקת ה-Ping"],
+                correct: 1, explain: "נורית ירוקה מעידה על קישור פיזי Physical Link תקין ופעיל בין הפורטים."
             },
             {
                 q: "מה מטרת השימוש בפקודת ping 192.168.1.1 ב-Command Prompt?",
-                opts: [
-                    "לשנות את כתובת ה-IP של המחשב",
-                    "לבדוק האם קיימת תקשורת בשכבה 3 והאם היעד משיב לחבילות ICMP",
-                    "להפעיל את שירות ה-DHCP בשרת",
-                    "למחוק את זיכרון המטמון של הסוויטש"
-                ],
-                correct: 1,
-                explain: "פקודת Ping שולחת חבילות ICMP Echo Request כדי לבדוק זמינות ותגובתיות של רכיב יעד ברשת."
+                opts: ["לשנות את כתובת ה-IP של המחשב", "לבדוק האם קיימת תקשורת בשכבה 3 והאם היעד משיב לחבילות ICMP", "להפעיל את שירות ה-DHCP בשרת", "למחוק את זיכרון המטמון של הסוויטש"],
+                correct: 1, explain: "פקודת Ping שולחת חבילות ICMP Echo Request כדי לבדוק זמינות ותגובתיות של רכיב יעד ברשת."
             },
             {
                 q: "מה קורה כאשר מחשב מוגדר ב-DHCP אך שרת ה-DHCP ברשת כבוי או לא נגיש?",
-                opts: [
-                    "המחשב ייכבה באופן אוטומטי",
-                    "המחשב ייצר לעצמו כתובת מסוג APIPA לדוגמה 169.254.1.1",
-                    "המחשב יתחבר מיד לאינטרנט ללא כתובת",
-                    "המחשב יקבל את הכתובת 127.0.0.1"
-                ],
-                correct: 1,
-                explain: "בהיעדר תגובה משרת DHCP, מערכת ההפעלה מקצה כתובת עצמית בטווח APIPA."
+                opts: ["המחשב ייכבה באופן אוטומטי", "המחשב ייצר לעצמו כתובת מסוג APIPA לדוגמה 169.254.1.1", "המחשב יתחבר מיד לאינטרנט ללא כתובת", "המחשב יקבל את הכתובת 127.0.0.1"],
+                correct: 1, explain: "בהיעדר תגובה משרת DHCP, מערכת ההפעלה מקצה כתובת עצמית בטווח APIPA."
             },
             {
                 q: "באיזו שכבה במודל OSI פועלת כתובת ה-MAC?",
                 opts: ["שכבה 1 - Physical", "שכבה 2 - Data Link", "שכבה 3 - Network", "שכבה 7 - Application"],
-                correct: 1,
-                explain: "כתובת MAC היא הכתובת הפיזית הצרובה בכרטיס הרשת ושייכת לשכבת ערוץ הנתונים Layer 2."
+                correct: 1, explain: "כתובת MAC היא הכתובת הפיזית הצרובה בכרטיס הרשת ושייכת לשכבת ערוץ הנתונים Layer 2."
             },
             {
                 q: "מהו היתרון המרכזי של מצב Simulation ב-Packet Tracer?",
-                opts: [
-                    "הוא מאיץ את מהירות האינטרנט של המחשב",
-                    "הוא מאפשר לראות את מעבר החבילות PDUs שלב אחר שלב ולבחון את השכבות השונות",
-                    "הוא מגדיר את הראוטרים באופן אוטומטי ללא פקודות",
-                    "הוא מחבר את הסימולטור לציוד אמיתי במעבדה"
-                ],
-                correct: 1,
-                explain: "מצב Simulation מאפשר להקפיא את הזמן ולחקור את מבנה החבילות בכל שכבה ושכבה לאורך המסלול."
+                opts: ["הוא מאיץ את מהירות האינטרנט של המחשב", "הוא מאפשר לראות את מעבר החבילות PDUs שלב אחר שלב ולבחון את השכבות השונות", "הוא מגדיר את הראוטרים באופן אוטומטי ללא פקודות", "הוא מחבר את הסימולטור לציוד אמיתי במעבדה"],
+                correct: 1, explain: "מצב Simulation מאפשר להקפיא את הזמן ולחקור את מבנה החבילות בכל שכבה ושכבה לאורך המסלול."
             },
             {
                 q: "באיזה סוג כבל נעשה שימוש בסימולטור לחיבור מחשב PC לסוויטש Switch?",
                 opts: ["Copper Cross-Over", "Copper Straight-Through", "Console Cable", "Fiber Optic"],
-                correct: 1,
-                explain: "לחיבור מכשירים ממדרג שונה משתמשים בכבל ישר Straight-Through."
+                correct: 1, explain: "לחיבור מכשירים ממדרג שונה משתמשים בכבל ישר Straight-Through."
             },
             {
                 q: "איזה רכיב נדרש כדי לחבר בין שתי רשתות מקומיות LAN שונות בעלות טווח IP שונה?",
                 opts: ["Switch בלבד", "Hub", "Router נתב", "כבל ישר נוסף"],
-                correct: 2,
-                explain: "נתב Router פועל בשכבה 3 ומיועד להעביר חבילות מידע בין רשתות IP נפרדות ושונות."
+                correct: 2, explain: "נתב Router פועל בשכבה 3 ומיועד להעביר חבילות מידע בין רשתות IP נפרדות ושונות."
             }
         ];
 
-        let userAnswers = {};
+        /* DATA: 20 Quiz Questions for VLANs Lab */
+        const vlanQuizData = [
+            { q: "באיזו שכבה במודל OSI פועל כבל תקשורת Copper Straight-Through?", opts: ["שכבה 1 (Physical)", "שכבה 2 (Data Link)", "שכבה 3 (Network)", "שכבה 4 (Transport)"], correct: 0, explain: "כבלים ואותות פיזיים שייכים לשכבה 1 Physical." },
+            { q: "מה תפקידה העיקרי של כתובת ה-MAC (Media Access Control)?", opts: ["זיהוי ייחודי של רשתות ברשת האינטרנט", "זיהוי ייחודי של רכיב חומרה ברשת המקומית (LAN)", "הקצאת כתובת דינמית למחשב", "ניתוח פורטים של אפליקציות"], correct: 1, explain: "כתובת MAC מזהה את כרטיס הרשת ברמת ה-LAN בשכבה 2." },
+            { q: "איזה רכיב מיועד להפריד בין מתחמי שידור (Broadcast Domains)?", opts: ["Hub", "Unmanaged Switch", "Router", "Repeaters"], correct: 2, explain: "נתב (Router) חוסם הודעות Broadcast ומפריד בין מתחמי שידור." },
+            { q: "באיזו שכבה במודל OSI פועלות כתובות IP?", opts: ["שכבה 1", "שכבה 2", "שכבה 3", "שכבה 4"], correct: 2, explain: "כתובת IP פועלת בשכבת הרשת Layer 3." },
+            { q: "מה מתרחש כאשר מחשב שולח הודעת Ping למחשב אחר באותה רשת מקומית?", opts: ["החבילה נשלחת ישירות ל-Default Gateway", "המחשב משתמש בפרוטוקול ARP כדי למצוא את כתובת ה-MAC של יעד ה-Ping", "המחשב פונה לשרת DNS כדי לקבל את כתובת ה-MAC", "הנתב מתרגם את הכתובת ל-NAT"], correct: 1, explain: "באותה רשת, המחשב בודק את טבלת ה-ARP או שולח בקשת ARP לקבלת כתובת ה-MAC של היעד." },
+            { q: "איזה פורט במתג (Switch) יש להגדיר כ-Trunk?", opts: ["פורט המחובר למחשב קצה בודד", "פורט המעביר תנועה של מספר VLANs לרכיב אחר (כמו Switch או Router)", "פורט המיועד לחיבור מדפסת בלבד", "פורט שמבוטל בו פלואו קונטרול"], correct: 1, explain: "פורט Trunk מיועד להעביר תנועה מתויגת של מספר VLANs בקו יחיד." },
+            { q: "מהי מסכת הרשת (Subnet Mask) הדיפולטיבית של כתובת Class C מסוג 192.168.10.0?", opts: ["255.0.0.0", "255.255.0.0", "255.255.255.0", "255.255.255.255"], correct: 2, explain: "לרשת Class C ברירת המחדל היא 255.255.255.0 (/24)." },
+            { q: "מה תפקידו של ה-Default Gateway בהגדרות IP של מחשב?", opts: ["לספק כתובת IP אוטומטית למחשב", "להפנות תנועה מיועדת לרשתות חיצוניות/אחרות", "לחסום וירוסים ברשת המקומית", "לחבר את המחשב לרשת האלחוטית בלבד"], correct: 1, explain: "כאשר יעד התקשורת אינו ברשת המקומית, המחשב שולח את המידע ל-Default Gateway." },
+            { q: "מהי הטכנולוגיה המאפשרת מעבר תנועה של מספר VLANs על גבי קו פיזי יחיד בין המתג לנתב?", opts: ["Spanning Tree Protocol (STP)", "IEEE 802.1Q (Dot1q Encap)", "OSPF Routing", "Static NAT"], correct: 1, explain: "תקן 802.1Q מוסיף תג מזהה VLAN למסגרת ה-Ethernet בקו Trunk." },
+            { q: "איזה כבל יש לשלב ב-Packet Tracer כדי לחבר פורט Ethernet של מחשב לפורט Ethernet של מתג?", opts: ["Crossover Cable", "Copper Straight-Through", "Fiber Optic Null Cable", "Console Cable"], correct: 1, explain: "חיבור מכשירי קצה למתג מבוצע באמצעות כבל ישר Straight-Through." },
+            { q: "מהו מתחם התנגשות (Collision Domain)?", opts: ["אזור ברשת שבו פקודות Routing עלולות להתנגש", "חלק ברשת שבו אותות פיזיים עלולים להתנגש זה בזה אם שני מכשירים משדרים בו-זמנית", "קבוצת VLANs בעלי אותו מזהה", "רשימת כתובות IP שאינן מורשות לגשת לאינטרנט"], correct: 1, explain: "מתחם התנגשות הוא מרחב שבו אותות עלולים להתנגש, כפי שהיה ב-Hub (כל פורט בסוויטש מבודד מתחם)." },
+            { q: "כמה מתחמי שידור (Broadcast Domains) נוצרים במתג בעל 24 פורטים שהוגדרו בו 3 VLANs שונים?", opts: ["1", "3", "24", "0"], correct: 1, explain: "כל VLAN מייצר מתחם שידור (Broadcast Domain) נפרד ולוגי, לכן 3 VLANs = 3 מתחמי שידור." },
+            { q: "מהי הפקודה בנתב Cisco שמפעילה ממשק פיזי שהיה במצב כבוי (Shutdown)?", opts: ["enable interface", "no shutdown", "interface start", "ip routing on"], correct: 1, explain: "הפקודה no shutdown מעבירה ממשק בציוד Cisco ממצב כבוי לפעיל." },
+            { q: "באיזו שכבה במודל OSI מוגדרת היחידה PDU בשם Frame (מסגרת)?", opts: ["שכבה 1 (Physical)", "שכבה 2 (Data Link)", "שכבה 3 (Network)", "שכבה 4 (Transport)"], correct: 1, explain: "בשכבה 2 (Data Link) יחידת המידע נקראת Frame." },
+            { q: "מהי מטרת הפרוטוקול ARP (Address Resolution Protocol)?", opts: ["תרגום כתובת IP לכתובת MAC", "תרגום שם מתחם (Domain Name) לכתובת IP", "הקצאת כתובות IP אוטומטית", "אבטחת מידע בשכבה 3"], correct: 0, explain: "ARP מוצא את כתובת ה-MAC הפיזית התואמת לכתובת IP לוגית ברשת המקומית." },
+            { q: "איזו כתובת מבין הבאות היא כתובת Broadcast ברשת 192.168.10.0/24?", opts: ["192.168.10.0", "192.168.10.1", "192.168.10.254", "192.168.10.255"], correct: 3, explain: "הכתובת האחרונה ברשת (/24) בעלת סיומת 255 מיועדת להודעות Broadcast." },
+            { q: "באיזה מצב (Mode) של פורט ב-Switch משתמשים כדי לחבר תחנת קצה (PC)?", opts: ["Trunk Mode", "Access Mode", "Dynamic Desirable Mode", "Router Mode"], correct: 1, explain: "פורט המחובר לתחנת קצה מוגדר במצב Access ומשויך ל-VLAN בודד." },
+            { q: "מה קורה כאשר מחשב ב-VLAN 10 מנסה לשלוח Ping למחשב ב-VLAN 20 ללא שירותי נתב (Routing)?", opts: ["ה-Ping יצליח רק אם המחשבים מחוברים לאותו Switch", "ה-Ping ייכשל מכיוון ש-VLANs שונים דורשים ניתוב בשכבה 3", "המתג ימיר את החבילה באופן אוטומטי", "המחשב היעד יעבור אוטומטית ל-VLAN 10"], correct: 1, explain: "VLANs שונים מבודדים לחלוטין בשכבה 2 ודורשים רכיב שכבה 3 (נתב) כדי לנתב ביניהם." },
+            { q: "איזה סוג הודעה נשלח לכל המכשירים באותו Broadcast Domain?", opts: ["Unicast", "Multicast", "Broadcast", "Anycast"], correct: 2, explain: "הודעת Broadcast מיועדת להגיע לכל המכשירים ברשת המקומית." },
+            { q: "מה תהיה התוצאה של הוספת sub-interface בנתב Cisco ללא פקודת encapsulation dot1q?", opts: ["הממשק יעבוד כרגיל", "הנתב לא יאפשר להגדיר כתובת IP על תת-הממשק", "ה-Switch ייכבה", "תווצר לולאה ברשת (Loop)"], correct: 1, explain: "בנתבי Cisco, חובה להגדיר את פרוטוקול ההכמסה dot1q לפני שניתן להגדיר IP על sub-interface." }
+        ];
 
-        function renderQuiz() {
-            const container = document.getElementById("quizContainer");
+        /* DATA: 20 Quiz Questions for Basic Lab */
+        const basicQuizData = [
+            { q: "באיזו שכבה במודל OSI פועלים כבלי התקשורת והאותות החשמליים ברשת?", opts: ["שכבה 1 (Physical)", "שכבה 2 (Data Link)", "שכבה 3 (Network)", "שכבה 4 (Transport)"], correct: 0, explain: "כבלים ואותות חשמליים הם חלק משכבה 1 פיזית." },
+            { q: "מה תפקידה העיקרי של כתובת ה-MAC?", opts: ["לזהות רשתות ברחבי האינטרנט", "לזהות באופן ייחודי את כרטיס הרשת ברשת המקומית", "לחלק כתובות IP באופן אוטומטי", "להגן על הרשת מפני וירוסים"], correct: 1, explain: "כתובת MAC היא זהות חומרה ייחודית לרשת המקומית (LAN)." },
+            { q: "באיזו שכבה במודל OSI פועלת כתובת IP?", opts: ["שכבה 1", "שכבה 2", "שכבה 3", "שכבה 7"], correct: 2, explain: "כתובת IP היא כתובת לוגית בשכבה 3 Network." },
+            { q: "באיזה סוג כבל יש להשתמש כדי לחבר מחשב אישי ל-Switch?", opts: ["Copper Straight-Through", "Console Cable", "Fiber Optics Loop", "Coaxial Cable"], correct: 0, explain: "לחיבור מחשב למתג משתמשים בכבל ישר Copper Straight-Through." },
+            { q: "מה תפקידו של ה-Default Gateway בהגדרות המחשב?", opts: ["לחבר את המחשב לשרת המדפסות", "להוות כתובת היציאה של המחשב לרשתות אחרות/חיצוניות", "לשפר את מהירות האינטרנט במחשב", "למחוק את טבלת ה-ARP ברשת"], correct: 1, explain: "ה-Default Gateway הוא הנתב שמקבל תנועה המיועדת מחוץ לרשת המקומית." },
+            { q: "איזה רכיב מבין הבאים מחבר בין רשתות נפרדות ושונות?", opts: ["Hub", "Switch", "Router (נתב)", "Access Point"], correct: 2, explain: "נתב (Router) פועל בשכבה 3 ומחבר בין רשתות IP נפרדות." },
+            { q: "מהי מסכת הרשת (Subnet Mask) הדיפולטיבית של כתובת מסוג 192.168.1.50?", opts: ["255.0.0.0", "255.255.0.0", "255.255.255.0", "0.0.0.0"], correct: 2, explain: "כתובת מסוג Class C מקבלת ברירת מחדל 255.255.255.0." },
+            { q: "מהי הפקודה בנתב Cisco שמדליקה ממשק פיזי שהיה כבוי?", opts: ["power on", "no shutdown", "enable interface", "start port"], correct: 1, explain: "פקודת no shutdown מבטלת את מצב ה-shutdown בפורט." },
+            { q: "כיצד נקראת יחידת המידע (PDU) בשכבה 2 (Data Link)?", opts: ["Bit", "Frame", "Packet", "Segment"], correct: 1, explain: "בשכבה 2 יחידת המידע נקראת Frame." },
+            { q: "כיצד נקראת יחידת המידע (PDU) בשכבה 3 (Network)?", opts: ["Bit", "Frame", "Packet", "Data"], correct: 2, explain: "בשכבה 3 יחידת המידע נקראת Packet." },
+            { q: "מה מטרת הפקודה ping בשורת הפקודות?", opts: ["לבדוק אם יש תקשורת בסיסית וזמינות בין שני מכשירים ברשת", "להגדיר כתובת IP חדשה למחשב", "להתקין דרייבר לכרטיס הרשת", "לראות את כל הקבצים ששמורים בנתב"], correct: 0, explain: "Ping בודקת זמינות תקשורת ותגובה באמצעות חבילות ICMP." },
+            { q: "מהי מטרת הפרוטוקול ARP (Address Resolution Protocol)?", opts: ["לתרגם כתובת IP ידועה לכתובת MAC שאינה ידועה", "לתרגם שמות אתרים (כמו google.com) לכתובת IP", "להגן על הסיסמאות ברשת", "לנתב חבילות בין מדינות"], correct: 0, explain: "ARP מוצא כתובת MAC על בסיס כתובת IP ברשת המקומית." },
+            { q: "איזה מכשיר לומד כתובות MAC ושומר אותן בטבלה פנימית כדי להעביר מידע לפורט הספציפי?", opts: ["Hub", "Switch", "Repeater", "Modem"], correct: 1, explain: "מתג Switch לומד כתובות MAC ומעביר פרימים בצורה חכמה רק לפורט היעד." },
+            { q: "מה מאפיין מפיץ קלאסי (Hub) לעומת מתג (Switch)?", opts: ["Hub שולח את המידע לכל הפורטים (Broadcast באופיו) ויוצר מתחם התנגשות אחד", "Hub הוא מכשיר מהיר וחכם יותר מ-Switch", "Hub פועל בשכבה 3 ו-Switch בשכבה 1", "אין שום הבדל ביניהם"], correct: 0, explain: "Hub משדר לכל הפורטים ללא הבחנה ופועל כמתחם התנגשות יחיד בשכבה 1." },
+            { q: "מהי כתובת ה-Broadcast הכללית של הרשת 192.168.1.0/24?", opts: ["192.168.1.0", "192.168.1.1", "192.168.1.255", "255.255.255.255"], correct: 2, explain: "הכתובת העליונה 192.168.1.255 משמשת לשידור Broadcast לכל הרשת." },
+            { q: "איזו פקודה ב-Switch תציג את כתובות ה-MAC שהמתג למד?", opts: ["show ip route", "show mac-address-table", "show interfaces ping", "show running-config arp"], correct: 1, explain: "הפקודה show mac-address-table מציגה את הטבלה שנבנתה במתג." },
+            { q: "כאשר מחשב רוצה לשלוח מידע למחשב אחר שנמצא באותה רשת מקומית, למי הוא פונה?", opts: ["ישירות לכתובת ה-MAC של המחשב היעד ברשת המקומית", "תמיד ל-Default Gateway ראשון", "לשרת ה-DNS הבינלאומי", "לנתב הראשי של ספק האינטרנט"], correct: 0, explain: "באותה רשת local LAN, המחשב פונה ישירות ל-MAC של היעד ללא צורך בנתב." },
+            { q: "מה פירוש ראשי תיבות של כרטיס רשת - NIC?", opts: ["Network Internet Connection", "Network Interface Card", "New Internal Computer", "National Information Center"], correct: 1, explain: "NIC = Network Interface Card (רכיב החומרה המתחבר לרשת)." },
+            { q: "מה קורה כאשר פורט בנתב נמצא במצב administratively down?", opts: ["הפורט מעביר מידע אך לא מקבל מידע", "הפורט כבוי באופן תוכנתי ודורש פקודת no shutdown", "הפורט מקולקל פיזית ויש להחליפו", "הפורט עובד רק במהירות 10Mbps"], correct: 1, explain: "מצב administratively down מעיד שהפורט כבוי בתוכנה ע\"י הפקודה shutdown." },
+            { q: "במצב Simulation ב-Packet Tracer, מה מייצג הצבע של מעטפות הנתונים ברשת?", opts: ["סוגי פרוטוקולים שונים (כגון ARP, ICMP) שעוברים ברשת", "את מהירות הכבל הפיזי", "את רמת הסוללה של המחשב", "את עוצמת האות האלחוטי"], correct: 0, explain: "בסימולציה כל מעטפת צבועה לפי הפרוטוקול שהיא מייצגת (ARP, ICMP, DHCP וכו')." }
+        ];
+
+        let userAnswers = {};
+        let vlanUserAnswers = {};
+        let basicUserAnswers = {};
+
+        function renderGenericQuiz(data, containerId, answersObj, prefix) {
+            const container = document.getElementById(containerId);
             if (!container) return;
             container.innerHTML = "";
-            quizData.forEach((item, qi) => {
+            data.forEach((item, qi) => {
                 const qDiv = document.createElement("div");
                 qDiv.className = "quiz-q";
-                qDiv.innerHTML = `<div class="quiz-q-num">שאלה ${qi + 1} מתוך ${quizData.length}</div><div class="quiz-q-text">${item.q}</div>`;
+                qDiv.id = `${prefix}-qbox-${qi}`;
+                qDiv.innerHTML = `<div class="quiz-q-num">שאלה ${qi + 1} מתוך ${data.length}</div><div class="quiz-q-text">${item.q}</div>`;
                 const optsDiv = document.createElement("div");
                 optsDiv.className = "quiz-opts";
                 item.opts.forEach((opt, oi) => {
                     const b = document.createElement("div");
                     b.className = "quiz-opt";
                     b.textContent = opt;
-                    b.onclick = () => answerQuiz(qi, oi);
+                    b.onclick = () => {
+                        answersObj[qi] = oi;
+                        const opts = qDiv.querySelectorAll(".quiz-opt");
+                        opts.forEach((el, i) => {
+                            if (i === oi) {
+                                el.style.borderColor = "var(--red)";
+                                el.style.background = "var(--c-sky-bg)";
+                            } else {
+                                el.style.borderColor = "var(--line)";
+                                el.style.background = "var(--paper)";
+                            }
+                        });
+                    };
                     optsDiv.appendChild(b);
                 });
                 qDiv.appendChild(optsDiv);
                 const explainDiv = document.createElement("div");
                 explainDiv.className = "quiz-explain";
-                explainDiv.id = "explain-" + qi;
+                explainDiv.id = `${prefix}-explain-${qi}`;
                 explainDiv.textContent = item.explain;
                 qDiv.appendChild(explainDiv);
                 container.appendChild(qDiv);
             });
         }
 
-        function answerQuiz(qi, oi) {
-            userAnswers[qi] = oi;
-            const opts = document.querySelectorAll(".quiz-q")[qi].querySelectorAll(".quiz-opt");
-            opts.forEach((el, i) => {
-                if (i === oi) {
-                    el.style.borderColor = "var(--red)";
-                    el.style.background = "var(--c-sky-bg)";
-                } else {
-                    el.style.borderColor = "var(--line)";
-                    el.style.background = "var(--paper)";
-                }
-            });
-        }
-
-        function checkScore() {
+        function checkGenericScore(data, answersObj, prefix, boxId, titleId, textId) {
             let correctCount = 0;
-            quizData.forEach((item, qi) => {
-                const selected = userAnswers[qi];
-                const opts = document.querySelectorAll(".quiz-q")[qi].querySelectorAll(".quiz-opt");
+            data.forEach((item, qi) => {
+                const selected = answersObj[qi];
+                const qBox = document.getElementById(`${prefix}-qbox-${qi}`);
+                const opts = qBox.querySelectorAll(".quiz-opt");
                 opts.forEach((el, i) => {
                     el.classList.add("disabled");
                     if (i === item.correct) el.classList.add("correct");
                     if (selected === i && selected !== item.correct) el.classList.add("wrong");
                 });
-                document.getElementById("explain-" + qi).classList.add("show");
+                document.getElementById(`${prefix}-explain-${qi}`).classList.add("show");
                 if (selected === item.correct) correctCount++;
             });
             
-            const score = Math.round((correctCount / quizData.length) * 100);
-            const box = document.getElementById("completionBox");
-            document.getElementById("scoreTitle").textContent = score >= 70 ? `🎉 כל הכבוד! הציון שלך: ${score}` : `שפר ונסה שוב! הציון שלך: ${score}`;
-            document.getElementById("scoreText").textContent = `ענית נכון על ${correctCount} מתוך ${quizData.length} שאלות.`;
+            const score = Math.round((correctCount / data.length) * 100);
+            const box = document.getElementById(boxId);
+            document.getElementById(titleId).textContent = score >= 70 ? `🎉 כל הכבוד! הציון שלך: ${score}` : `שפר ונסה שוב! הציון שלך: ${score}`;
+            document.getElementById(textId).textContent = `ענית נכון על ${correctCount} מתוך ${data.length} שאלות.`;
             box.style.display = "block";
         }
 
-        function unlockTeacherAnswers() {
+        function checkScore() { checkGenericScore(quizData, userAnswers, 'main', 'completionBox', 'scoreTitle', 'scoreText'); }
+        function checkVlanScore() { checkGenericScore(vlanQuizData, vlanUserAnswers, 'vlan', 'vlanCompletionBox', 'vlanScoreTitle', 'vlanScoreText'); }
+        function checkBasicScore() { checkGenericScore(basicQuizData, basicUserAnswers, 'basic', 'basicCompletionBox', 'basicScoreTitle', 'basicScoreText'); }
+
+        function unlockTeacherAnswers(quizType) {
             const pwd = prompt("הזן סיסמת מורה לצפייה בתשובות הנכונות:");
             if (pwd && pwd.trim().toLowerCase() === "sahar") {
                 alert("אימות מורה הצליח! כל התשובות וההסברים מוצגים כעת.");
-                quizData.forEach((item, qi) => {
-                    userAnswers[qi] = item.correct;
-                    const opts = document.querySelectorAll(".quiz-q")[qi].querySelectorAll(".quiz-opt");
+                let data, answersObj, prefix;
+                if (quizType === 'main') { data = quizData; answersObj = userAnswers; prefix = 'main'; }
+                else if (quizType === 'vlan') { data = vlanQuizData; answersObj = vlanUserAnswers; prefix = 'vlan'; }
+                else if (quizType === 'basic') { data = basicQuizData; answersObj = basicUserAnswers; prefix = 'basic'; }
+
+                data.forEach((item, qi) => {
+                    answersObj[qi] = item.correct;
+                    const qBox = document.getElementById(`${prefix}-qbox-${qi}`);
+                    const opts = qBox.querySelectorAll(".quiz-opt");
                     opts.forEach((el, i) => {
                         el.classList.add("disabled");
                         if (i === item.correct) el.classList.add("correct");
                     });
-                    document.getElementById("explain-" + qi).classList.add("show");
+                    document.getElementById(`${prefix}-explain-${qi}`).classList.add("show");
                 });
             } else if (pwd !== null) {
                 alert("סיסמה שגויה! הגישה נדחתה.");
@@ -1065,7 +1209,9 @@
 
         window.onload = function() {
             try { applyDark(localStorage.getItem('pt_lesson_dark') === '1'); } catch (e) {}
-            renderQuiz();
+            renderGenericQuiz(quizData, "quizContainer", userAnswers, "main");
+            renderGenericQuiz(vlanQuizData, "vlanQuizContainer", vlanUserAnswers, "vlan");
+            renderGenericQuiz(basicQuizData, "basicQuizContainer", basicUserAnswers, "basic");
             if (typeof lucide !== 'undefined') { lucide.createIcons(); }
         };
     </script>
